@@ -1,86 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on 刘常乐的个人博客</title>
-        <link>https://changle-liu.github.io/post/</link>
-        <description>Recent content in Posts on 刘常乐的个人博客</description>
+        <title>深度学习 on 刘常乐的个人博客</title>
+        <link>https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <description>Recent content in 深度学习 on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>LoRA微调</title>
-        <link>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</link>
-        <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</guid>
-        <description>&lt;h2 id=&#34;lora-外的其他微调方法&#34;&gt;LoRA 外的其他微调方法
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735052735925-04dc9b11-969e-4338-bd8c-b79d5d9ccf50.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;adapter类&#34;&gt;Adapter类
-&lt;/h3&gt;&lt;p&gt;PEFT技术通过在预训练模型的各层之间插入较小的神经网络模块，这些新增的神经模块被称为&amp;quot;适配器&amp;quot;，在进行下游任务的微调时，只需对适配器参数进行训练便能实现高效微调的目标。&lt;/p&gt;
-&lt;p&gt;在此基础上衍生出了AdapterP、Parallel等高效微调技术；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Adapter Tuning&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;设计了Adapter 结构，将其嵌入 Transformer 的结构里面，在训练时，固定住原来预训练模型的参数不变，只对新增的 Adapter 结构进行微调。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104287485-795324b1-1c33-447c-b494-7a001c42896d.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;首先是一个 down-project 层将高维度特征映射到低维特征&lt;/li&gt;
-&lt;li&gt;然后过一个非线形层之后，再用一个 up-project 结构将低维特征映射回原来的高维特征&lt;/li&gt;
-&lt;li&gt;同时也设计了 skip-connection 结构，确保了在最差的情况下能够退化为identity（类似残差结构）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;能够在只额外对增加的 3.6% 参数规模（相比原来预训练模型的参数量）的情况下取得和Full-Finetuning 接近的效果（GLUE指标在0.4%以内）。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;首次提出针对 BERT 的 PEFT微调方式，拉开了 PEFT 研究的序幕。&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;遗留问题：增加了模型层数，引入了额外的推理延迟。&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;prefixtuning类&#34;&gt;PrefixTuning类
-&lt;/h3&gt;&lt;p&gt;PEFT技术通过在模型的输入或隐层添加k个额外可训练的前缀标记，模型微调时只训练这些前缀参数便能实现高效微调的目标。&lt;/p&gt;
-&lt;p&gt;在此基础上衍生出了P-Tuning、P-Tuningv2等高效微调技术；&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Prefix-Tuning&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104373263-12713bed-9a55-4848-b9a2-9da5f9d17d82.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;该方法是在输入 token 之前构造一段任务相关的 virtual tokens 作为 Prefix，然后训练的时候只更新 Prefix 部分的参数，而 Transformer 中的其他部分参数固定。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;遗留问题：难于训练，且预留给 Prompt 的序列挤占了下游任务的输入序列空间，影响模型性能。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(18, 18, 18);&#34;&gt;遗留问题：Prompt Tuning和P-tuning这两种方法都是在预训练模型参数规模够足够大时，才能达到和Fine-tuning类似的效果，而参数规模较小时效果则很差，且在sequence tagging任务上表现都很差。&lt;/font&gt;&lt;/p&gt;
-&lt;h2 id=&#34;lora-及-lora-变体&#34;&gt;LoRA 及 LoRA 变体
-&lt;/h2&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(36, 41, 46);&#34;&gt;对于解决许多问题来说，我们希望在给定的下游任务上训练LLM，例如对句子进行分类或生成给定问题的答案。但是如果直接使用微调，这就需要要训练有数百万到数十亿个参数的大模型。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(36, 41, 46);&#34;&gt;LoRA提供了另一种训练方法，通过减少训练的参数数量，这种方法更快、更容易进行。LoRA引入了两个矩阵A和B， 如果参数W的原始矩阵的大小为d × d，则矩阵A和B的大小分别为d × r和r × d，其中r要小得多(通常小于100)。参数r称为秩。LoRA 使用两个矩阵的乘积来模拟模型的参数变化。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(36, 41, 46);&#34;&gt;如果使用秩为r=16的LoRA，则这些矩阵的形状为16 x d，这样就大大减少了需要训练的参数数量。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font style=&#34;color:rgb(36, 41, 46);&#34;&gt;LoRA的最大的优点是，与微调相比，训练的参数更少，但是却能获得与微调基本相当的性能。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.aliyun.com/article/1460434&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;LoRA及其变体概述：LoRA, DoRA, AdaLoRA, Delta-LoRA-阿里云开发者社区&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;lora&#34;&gt;LoRA
-&lt;/h3&gt;&lt;p&gt;引入两个低秩矩阵 A(d&lt;em&gt;r)、B(r&lt;/em&gt;d)，冻结其余参数，使得微调的参数量大大减少&lt;/p&gt;
-&lt;p&gt;A 被初始化为均值为 0 的正态分布，B 初始化为全 0&lt;/p&gt;
-&lt;h3 id=&#34;lora-1&#34;&gt;LoRA+
-&lt;/h3&gt;&lt;p&gt;B 的学习率设置为远高于 A，使训练更加高效&lt;/p&gt;
-&lt;h3 id=&#34;lora-fa&#34;&gt;LoRA-FA
-&lt;/h3&gt;&lt;p&gt;A 在初始化后被冻结，只训练 B，使得参数减半&lt;/p&gt;
-&lt;h3 id=&#34;lora-drop&#34;&gt;LoRA-drop
-&lt;/h3&gt;&lt;p&gt;x 作为隐藏层状态，利用 BAx 计算 LoRA 适配器的重要性，如果重要性较小则将其进行冻结&lt;/p&gt;
-&lt;h3 id=&#34;adalora&#34;&gt;AdaLoRA
-&lt;/h3&gt;&lt;p&gt;对不同位置的 LoRA 适配器分配不同的秩&lt;/p&gt;
-&lt;h3 id=&#34;dora&#34;&gt;DoRA
-&lt;/h3&gt;&lt;p&gt;将矩阵中的向量分解成大小和方向的乘积，获得更高的准确度&lt;/p&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>多层感知机-动手学深度学习</title>
         <link>https://changle-liu.github.io/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
@@ -10850,17 +10777,6 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &lt;li&gt;尽量训练 3 个以上 epoch&lt;/li&gt;
 &lt;li&gt;可以固定住底层或将顶层随机初始化&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-        </item>
-        <item>
-        <title></title>
-        <link>https://changle-liu.github.io/p/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://changle-liu.github.io/p/</guid>
-        <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
-&lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         
