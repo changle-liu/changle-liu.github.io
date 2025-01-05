@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>LLM</title>
+        <link>https://changle-liu.github.io/categories/llm/</link>
+        <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/categories/llm/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Test</title>
         <link>https://changle-liu.github.io/categories/test/</link>
         <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
