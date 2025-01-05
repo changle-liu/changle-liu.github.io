@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>刘常乐的个人博客</title>
-        <link>https://changle-liu.github.io/</link>
+        <link>http://localhost:1313/</link>
         <description>Recent content on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>LoRA微调</title>
-        <link>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</link>
+        <link>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</guid>
+        <guid>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</guid>
         <description>&lt;h2 id=&#34;lora-外的其他微调方法&#34;&gt;LoRA 外的其他微调方法
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735052735925-04dc9b11-969e-4338-bd8c-b79d5d9ccf50.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-0.png&#34;
 	
 	
 	
@@ -27,7 +27,7 @@
 &lt;p&gt;在此基础上衍生出了AdapterP、Parallel等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Adapter Tuning&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;设计了Adapter 结构，将其嵌入 Transformer 的结构里面，在训练时，固定住原来预训练模型的参数不变，只对新增的 Adapter 结构进行微调。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104287485-795324b1-1c33-447c-b494-7a001c42896d.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/image-1.png&#34;
 	
 	
 	
@@ -47,7 +47,7 @@
 &lt;/h3&gt;&lt;p&gt;PEFT技术通过在模型的输入或隐层添加k个额外可训练的前缀标记，模型微调时只训练这些前缀参数便能实现高效微调的目标。&lt;/p&gt;
 &lt;p&gt;在此基础上衍生出了P-Tuning、P-Tuningv2等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Prefix-Tuning&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104373263-12713bed-9a55-4848-b9a2-9da5f9d17d82.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-2.png&#34;
 	
 	
 	
@@ -82,10 +82,10 @@
         </item>
         <item>
         <title>多层感知机-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -101,6 +101,16 @@
 	
 	
 	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c52460%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250105174720241.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250105174720241&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -1018,10 +1028,10 @@ $代表了正则项的重要程度&lt;/p&gt;
         </item>
         <item>
         <title>计算性能-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -1038,10 +1048,10 @@ $代表了正则项的重要程度&lt;/p&gt;
         </item>
         <item>
         <title>卷积神经网络-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -1738,10 +1748,10 @@ $代表了正则项的重要程度&lt;/p&gt;
         </item>
         <item>
         <title>深度学习计算-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -2401,10 +2411,10 @@ $代表了正则项的重要程度&lt;/p&gt;
         </item>
         <item>
         <title>现代卷积神经网络-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -3417,10 +3427,10 @@ $代表了正则项的重要程度&lt;/p&gt;
         </item>
         <item>
         <title>现代循环神经网络-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -5057,10 +5067,10 @@ $&lt;/p&gt;
         </item>
         <item>
         <title>线性回归网络-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -5603,10 +5613,10 @@ $&lt;/p&gt;
         </item>
         <item>
         <title>循环神经网络-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -7186,10 +7196,10 @@ $&lt;/p&gt;
         </item>
         <item>
         <title>优化算法-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -7220,7 +7230,7 @@ $&lt;/p&gt;
 &lt;p&gt;小批量随机梯度下降 sgd：采样一个随机子集求梯度&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;冲量法：&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1727593775171-c6bf67ac-26a6-44e9-a3d5-879d552bf381.png&#34;
+&lt;p&gt;冲量法：&lt;img src=&#34;http://localhost:1313/images/20250105_1802323601.png&#34;
 	
 	
 	
@@ -7233,7 +7243,7 @@ $&lt;/p&gt;
 &lt;p&gt;Adam：对学习率不敏感&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1727593970311-92afc852-388a-4f42-ac55-d86bde2bb3d0.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/20250105_1802323978.png&#34;
 	
 	
 	
@@ -7241,7 +7251,7 @@ $&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1727593987397-8122e30a-0688-4179-8f98-b9767cfcd605.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/20250105_1802322427.png&#34;
 	
 	
 	
@@ -7250,7 +7260,7 @@ $&lt;/p&gt;
 	
 &gt;t 比较小时进行修正&lt;/p&gt;
 &lt;p&gt;t 较大时同样进行修正&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1727594239973-094ec0b4-39b8-4be4-9c5d-879b98615d1f.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/20250105_1802324909.png&#34;
 	
 	
 	
@@ -7258,7 +7268,7 @@ $&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1727594250885-7d44a6c1-2d10-4d26-8b4e-3d78e9aa9b5a.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/20250105_1802322583.png&#34;
 	
 	
 	
@@ -7270,10 +7280,10 @@ $&lt;/p&gt;
         </item>
         <item>
         <title>预备知识-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -7633,10 +7643,10 @@ $&lt;/p&gt;
         </item>
         <item>
         <title>注意力机制-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -9407,10 +9417,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
         </item>
         <item>
         <title>自然语言处理基础-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -10854,38 +10864,27 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
         </item>
         <item>
         <title>归档</title>
-        <link>https://changle-liu.github.io/archives/</link>
+        <link>http://localhost:1313/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/archives/</guid>
+        <guid>http://localhost:1313/archives/</guid>
         <description></description>
         </item>
         <item>
-        <title></title>
-        <link>https://changle-liu.github.io/p/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://changle-liu.github.io/p/</guid>
-        <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
-&lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>关于</title>
-        <link>https://changle-liu.github.io/%E5%85%B3%E4%BA%8E/</link>
+        <link>http://localhost:1313/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/%E5%85%B3%E4%BA%8E/</guid>
+        <guid>http://localhost:1313/%E5%85%B3%E4%BA%8E/</guid>
         <description>&lt;p&gt;这个人很懒，什么都没有留下。。。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>搜索</title>
-        <link>https://changle-liu.github.io/search/</link>
+        <link>http://localhost:1313/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/search/</guid>
+        <guid>http://localhost:1313/search/</guid>
         <description></description>
         </item>
         

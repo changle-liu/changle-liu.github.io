@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LLM on 刘常乐的个人博客</title>
-        <link>https://changle-liu.github.io/categories/llm/</link>
+        <link>http://localhost:1313/categories/llm/</link>
         <description>Recent content in LLM on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/llm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/llm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>LoRA微调</title>
-        <link>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</link>
+        <link>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</guid>
+        <guid>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</guid>
         <description>&lt;h2 id=&#34;lora-外的其他微调方法&#34;&gt;LoRA 外的其他微调方法
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735052735925-04dc9b11-969e-4338-bd8c-b79d5d9ccf50.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-0.png&#34;
 	
 	
 	
@@ -27,7 +27,7 @@
 &lt;p&gt;在此基础上衍生出了AdapterP、Parallel等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Adapter Tuning&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;设计了Adapter 结构，将其嵌入 Transformer 的结构里面，在训练时，固定住原来预训练模型的参数不变，只对新增的 Adapter 结构进行微调。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104287485-795324b1-1c33-447c-b494-7a001c42896d.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/image-1.png&#34;
 	
 	
 	
@@ -47,7 +47,7 @@
 &lt;/h3&gt;&lt;p&gt;PEFT技术通过在模型的输入或隐层添加k个额外可训练的前缀标记，模型微调时只训练这些前缀参数便能实现高效微调的目标。&lt;/p&gt;
 &lt;p&gt;在此基础上衍生出了P-Tuning、P-Tuningv2等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Prefix-Tuning&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/40712000/1735104373263-12713bed-9a55-4848-b9a2-9da5f9d17d82.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-2.png&#34;
 	
 	
 	
