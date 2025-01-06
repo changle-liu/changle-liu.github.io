@@ -2,22 +2,179 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LLM on 刘常乐的个人博客</title>
-        <link>https://changle-liu.github.io/categories/llm/</link>
+        <link>http://localhost:1313/categories/llm/</link>
         <description>Recent content in LLM on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Wed, 25 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/llm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 06 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/llm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>大模型推理采样策略</title>
+        <link>http://localhost:1313/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/</link>
+        <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/</guid>
+        <description>&lt;p&gt;大模型根据给定的输入文本（比如一个开头或一个问题）生成输出文本（比如一个答案或一个结尾）。为了生成输出文本，模型会逐个预测每个 token，直到达到一个终止条件（如一个标点符号或一个最大长度）。在每一步，模型会给出一个概率分布，表示它对下一个单词的预测概率。&lt;/p&gt;
+&lt;h2 id=&#34;贪心采样greedy-search&#34;&gt;贪心采样（Greedy Search）
+&lt;/h2&gt;&lt;p&gt;直接选择分布中概率最大的 token&lt;/p&gt;
+&lt;p&gt;优点：计算简单高效&lt;/p&gt;
+&lt;p&gt;缺点：文本重复，缺乏多样性&lt;/p&gt;
+&lt;h2 id=&#34;集束搜索beam-search&#34;&gt;集束搜索（Beam Search）
+&lt;/h2&gt;&lt;p&gt;启发式图搜索算法，每轮保留 num_beams 个输出作为候选。num_beams 设置为 1 时则退化为贪心采样&lt;/p&gt;
+&lt;p&gt;优点：不仅仅关注当下的策略，一定程度上使最终得到更优的序列&lt;/p&gt;
+&lt;p&gt;缺点：num_beams 固定的情况下每次生成的结果依然相同，缺乏多样性&lt;/p&gt;
+&lt;h2 id=&#34;top-k-采样&#34;&gt;Top-k 采样
+&lt;/h2&gt;&lt;p&gt;对前 k 个 token 的概率进行归一化，根据归一化结果的概率随机挑选出 token&lt;/p&gt;
+&lt;p&gt;优点：随机性有利于提高生成的多样性&lt;/p&gt;
+&lt;p&gt;缺点：如果前 k 个集合经常包含相似的标记，则仍然有可能出现重复；在分布陡峭的时候仍会采样到概率小的单词，或者在分布平缓的时候只能采样到部分可用单词；确定 k 的最佳值需要进行实验，因为 k 太小可能会导致可预测性，而 k 太大可能会重新引入过多的随机性&lt;/p&gt;
+&lt;h2 id=&#34;top-p-采样---核采样&#34;&gt;Top-P 采样 - 核采样
+&lt;/h2&gt;&lt;p&gt;选择概率从大到小累计不大于 P 的 token，然后归一化随机选择&lt;/p&gt;
+&lt;p&gt;可以和 Top-k 结合使用，p 在 k 之后启用，用于动态设置 token 候选列表的大小。Top-P 的引入使得分布平缓时能存在更多候选，分布陡峭时候选数目少&lt;/p&gt;
+&lt;p&gt;缺点：P 太小则输出固定，太高则模型输出易混乱&lt;/p&gt;
+&lt;h2 id=&#34;temperature&#34;&gt;Temperature
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/images/20250106_1727052558.png&#34;
+	width=&#34;672&#34;
+	height=&#34;207&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/images/20250106_1727052558_hu4981520981508579775.png 480w, http://localhost:1313/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/images/20250106_1727052558_hu6933519201625115193.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;324&#34;
+		data-flex-basis=&#34;779px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;将模型输出的 logit 除以 T 后再进行归一化&lt;/p&gt;
+&lt;p&gt;T&amp;gt;1 时：除以大于 1 的temprature的效果是使 logit 在 softmax 操作之前彼此更接近。这种分布的“平坦化”意味着 logit 之间的差异不那么明显，从而导致更均匀的分布，其中可能性较小的 token 获得更高的被选中机会，生成会更加多样&lt;/p&gt;
+&lt;p&gt;T&amp;lt;1 时：相反，除以小于 1 的温度会放大 logit 之间的差异，使分布“更尖锐”。这会导致可能性较大的 token 的概率更高，而可能性较小的 token 的概率会显著降低。&lt;/p&gt;
+&lt;p&gt;一般来说，prompt 越长，描述得越清楚，模型生成的输出质量就越好，置信度越高，这时可以适当调高 temperature 的值；反过来，如果 prompt 很短，很含糊，这时再设置一个比较高的 temperature 值，模型的输出就很不稳定了。&lt;/p&gt;
+&lt;h2 id=&#34;联合采样&#34;&gt;联合采样
+&lt;/h2&gt;&lt;p&gt;思路：通常我们是将 top-k、top-p、Temperature 联合起来使用。使用的先后顺序是 top-k-&amp;gt;top-p-&amp;gt;Temperature。主流大语言模型（Qwen、Llama、GPT）大多采用 Top-p 采样 作为核心策略，同时结合 温度调节 来优化生成质量和多样性。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>损失函数</title>
+        <link>http://localhost:1313/p/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</link>
+        <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/p/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</guid>
+        <description>&lt;h2 id=&#34;font-stylecolorrgb25-27-31-基于距离度量的损失函数font&#34;&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt; 基于距离度量的损失函数&lt;/font&gt;&lt;/strong&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;平均绝对误差mae-l1-损失函数&#34;&gt;平均绝对误差（MAE）/ L1 损失函数
+&lt;/h3&gt;&lt;p&gt;$ MAE = \frac{1}{n}\sum_{i=1}^n|Y_i - f(x_i)| $&lt;/p&gt;
+&lt;h3 id=&#34;均方误差mse&#34;&gt;均方误差（MSE）
+&lt;/h3&gt;&lt;p&gt;$ L(Y|f(x)) = \frac{1}{n} \sum_{i=1}^n(Y_i - f(x_i))^2 $&lt;/p&gt;
+&lt;h3 id=&#34;l2-损失函数&#34;&gt;L2 损失函数
+&lt;/h3&gt;&lt;p&gt;$ L(Y|f(x)) = \sqrt{\frac{1}{n} \sum_{i=1}^n(Y_i - f(x_i))^2} $&lt;/p&gt;
+&lt;h3 id=&#34;huber损失函数&#34;&gt;huber损失函数
+&lt;/h3&gt;&lt;p&gt;huber损失是平方损失和绝对损失的综合，它克服了平方损失和绝对损失的缺点，不仅使损失函数具有连续的导数，而且利用MSE梯度随误差减小的特性，可取得更精确的最小值。尽管huber损失对异常点具有更好的鲁棒性，但是，它不仅引入了额外的参数，而且选择合适的参数比较困难，这也增加了训练和调试的工作量。&lt;/p&gt;
+&lt;p&gt;$ L(Y \mid f(x)) =
+\begin{cases}
+\frac{1}{2}(Y - f(x))^2 &amp;amp; \text{if } \lvert Y - f(x) \rvert \leq \delta, \
+\delta \lvert Y - f(x) \rvert - \frac{1}{2} \delta^2 &amp;amp; \text{if } \lvert Y - f(x) \rvert &amp;gt; \delta.
+\end{cases}
+$&lt;/p&gt;
+&lt;h2 id=&#34;font-stylecolorrgb25-27-31基于fontfont-stylecolorrgb25-27-31概率分布度量fonthttpszhidazhihucomsearchcontent_id146143690content_typearticlematch_order2qe6a682e78e87e58886e5b883e5baa6e9878fzhida_sourceentityfont-stylecolorrgb25-27-31的损失函数font&#34;&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;基于&lt;/font&gt;&lt;/strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhida.zhihu.com/search?content_id=146143690&amp;amp;content_type=Article&amp;amp;match_order=2&amp;amp;q=%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83%E5%BA%A6%E9%87%8F&amp;amp;zhida_source=entity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;概率分布度量&lt;/font&gt;&lt;/strong&gt;&lt;/a&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;的损失函数&lt;/font&gt;&lt;/strong&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;kl-散度&#34;&gt;KL 散度
+&lt;/h3&gt;&lt;p&gt;$ L(Y \mid f(x)) = \sum_{i=1}^n Y_i \times \log\left(\frac{Y_i}{f(x_i)}\right)
+$&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的&lt;/font&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhida.zhihu.com/search?content_id=146143690&amp;amp;content_type=Article&amp;amp;match_order=5&amp;amp;q=KL%E6%95%A3%E5%BA%A6&amp;amp;zhida_source=entity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;KL散度&lt;/font&gt;&lt;/a&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;越小，当两个随机分布的差别增大时，它们的KL散度也会增大，因此KL散度可以用于比较文本标签或图像的相似性。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/BlairGrowing/p/15859968.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;KL散度非负性证明&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;font-stylecolorrgb25-27-31交叉熵font&#34;&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;交叉熵&lt;/font&gt;
+&lt;/h3&gt;&lt;p&gt;$ L(Y \mid f(x)) = -\sum_{i=1}^N Y_i \log f(x_i)
+$&lt;/p&gt;
+&lt;p&gt;交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;CrossEntropy_loss&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;    y_true,y_pred，分别是两个概率分布
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;    比如：px=[0.1,0.2,0.8]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;          py=[0.3,0.3,0.4]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fx&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;zip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_pred&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;torch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;torch.nn&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;nn&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建损失函数对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;loss_fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CrossEntropyLoss&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 预测值（模型输出）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;predictions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tensor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 真实标签&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;labels&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tensor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 计算交叉熵损失&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loss_fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;predictions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;labels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 打印交叉熵损失&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;focal-loss&#34;&gt;Focal Loss
+&lt;/h3&gt;&lt;p&gt;$ FE =
+\begin{cases}
+-\alpha (1-p)^\gamma \log(p) &amp;amp; y = 1 \
+-(1-\alpha) p^\gamma \log(1-p) &amp;amp; y = 0
+\end{cases}
+$&lt;/p&gt;
+&lt;p&gt;focal loss的引入主要是为了解决难易样本不均衡的问题。通过 alpha ([0, 1]) 可以抑制正负样本的数量失衡，gama ([0, 5])可以控制简单/难区分样本数量失衡。gama 为 0 时则退化为最初的交叉熵&lt;/p&gt;
+&lt;p&gt;p 越接近 y，说明预测的难度越低，指数运算后降低其损失大小&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/261059231&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;损失函数（Loss Function）&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>LoRA微调</title>
-        <link>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</link>
+        <link>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</link>
         <pubDate>Wed, 25 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/</guid>
+        <guid>http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/</guid>
         <description>&lt;h2 id=&#34;lora-外的其他微调方法&#34;&gt;LoRA 外的其他微调方法
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-0.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-0.png&#34;
 	width=&#34;1082&#34;
 	height=&#34;1120&#34;
-	srcset=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu3270889673185656373.png 480w, https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu4733665919134901706.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu3270889673185656373.png 480w, http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu4733665919134901706.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -31,10 +188,10 @@
 &lt;p&gt;在此基础上衍生出了AdapterP、Parallel等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Adapter Tuning&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;设计了Adapter 结构，将其嵌入 Transformer 的结构里面，在训练时，固定住原来预训练模型的参数不变，只对新增的 Adapter 结构进行微调。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-1.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-1.png&#34;
 	width=&#34;648&#34;
 	height=&#34;472&#34;
-	srcset=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu16290528256386821728.png 480w, https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu11487373274832207708.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu16290528256386821728.png 480w, http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu11487373274832207708.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -55,10 +212,10 @@
 &lt;/h3&gt;&lt;p&gt;PEFT技术通过在模型的输入或隐层添加k个额外可训练的前缀标记，模型微调时只训练这些前缀参数便能实现高效微调的目标。&lt;/p&gt;
 &lt;p&gt;在此基础上衍生出了P-Tuning、P-Tuningv2等高效微调技术；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Prefix-Tuning&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-2.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-2.png&#34;
 	width=&#34;636&#34;
 	height=&#34;489&#34;
-	srcset=&#34;https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-2_hu16600948502389701347.png 480w, https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/images/image-2_hu4448554384709646835.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-2_hu16600948502389701347.png 480w, http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/images/image-2_hu4448554384709646835.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -94,10 +251,10 @@
         </item>
         <item>
         <title>自然语言处理基础-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 27 Oct 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
@@ -133,10 +290,10 @@
 &lt;li&gt;段嵌入：将不同的句子区分&lt;/li&gt;
 &lt;li&gt;位置嵌入：位置编码可学习&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213.png&#34;
 	width=&#34;552&#34;
 	height=&#34;171&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213_hu17136071168933591748.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213_hu7411584823408809178.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213_hu17136071168933591748.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398213_hu7411584823408809178.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -891,10 +1048,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;d2l&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hist&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;train_tokens&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bins&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961.png&#34;
 	width=&#34;337&#34;
 	height=&#34;238&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961_hu4245389649168873681.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961_hu18000135193217058036.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961_hu4245389649168873681.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392961_hu18000135193217058036.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -979,10 +1136,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;使用循环神经网络&#34;&gt;使用循环神经网络
 &lt;/h2&gt;&lt;h1 id=&#34;序列级和词元级使用微调-bert&#34;&gt;序列级和词元级使用微调 BERT
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505.png&#34;
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505.png&#34;
 	width=&#34;381&#34;
 	height=&#34;248&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505_hu9379034238162198478.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505_hu9974603276751459022.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505_hu9379034238162198478.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956392505_hu9974603276751459022.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -999,10 +1156,10 @@
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;将&lt;cls&gt;对应的向量输入到全连接层分类&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330.png&#34;
 	width=&#34;701&#34;
 	height=&#34;271&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330_hu15385042843607031450.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330_hu6972968214768404177.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330_hu15385042843607031450.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396330_hu6972968214768404177.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1016,10 +1173,10 @@
 &lt;li&gt;识别一个词元是否是命名实体，如人名、机构、位置&lt;/li&gt;
 &lt;li&gt;将非特殊词元放进全连接分类&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629.png&#34;
 	width=&#34;342&#34;
 	height=&#34;248&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629_hu9200072989637756670.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629_hu194346834246505406.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629_hu9200072989637756670.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956393629_hu194346834246505406.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1033,10 +1190,10 @@
 &lt;li&gt;给定问题、描述文字（&lt;seq&gt;分隔），找出片段作为回答&lt;/li&gt;
 &lt;li&gt;对片段中的每个词元，预测其是否是回答的开头或结束&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626.png&#34;
 	width=&#34;402&#34;
 	height=&#34;267&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626_hu1919789334248340957.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626_hu13944026694412356252.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626_hu1919789334248340957.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956396626_hu13944026694412356252.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1507,10 +1664,10 @@
 &lt;p&gt;分为截断法和层级法&lt;/p&gt;
 &lt;p&gt;截断法：头、尾、头+尾&lt;/p&gt;
 &lt;p&gt;层级法：分成 k 个片段，分别喂给 BERT 后将表示向量通过均值池化等方式来组合所有分数的表示&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309.png&#34;
 	width=&#34;676&#34;
 	height=&#34;386&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309_hu6736440641593511393.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309_hu11473580157371933482.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309_hu6736440641593511393.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956398309_hu11473580157371933482.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1522,10 +1679,10 @@
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;不同层的特征：最后一层表征效果最好，最后四层进行最大值池化效果最好&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242.png&#34;
 	width=&#34;680&#34;
 	height=&#34;743&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242_hu15580486304491670915.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242_hu10760822603829882101.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242_hu15580486304491670915.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956394242_hu10760822603829882101.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1539,10 +1696,10 @@
 &lt;/ol&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Catastrophic forgetting (灾难性遗忘)通常是迁移学习中的常见诟病，这意味着在学习新知识的过程中预先训练的知识会被遗忘。&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;2e-5&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt; 才能克服灾难性遗忘问题，预训练模型训练不能收敛时要&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;多检查超参数设置是否有问题&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860.png&#34;
 	width=&#34;784&#34;
 	height=&#34;222&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860_hu3954631706039842358.png 480w, https://changle-liu.github.io/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860_hu8569407849486735986.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860_hu3954631706039842358.png 480w, http://localhost:1313/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0956391860_hu8569407849486735986.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1577,19 +1734,19 @@
         </item>
         <item>
         <title>注意力机制-动手学深度学习</title>
-        <link>https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;p&gt;动手学深度学习v2&lt;/p&gt;
 &lt;p&gt;课程链接：&lt;a class=&#34;link&#34; href=&#34;https://courses.d2l.ai/zh-v2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://courses.d2l.ai/zh-v2/&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;注意力提示&#34;&gt;注意力提示
 &lt;/h1&gt;&lt;h2 id=&#34;主要思想&#34;&gt;主要思想
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725.png&#34;
 	width=&#34;501&#34;
 	height=&#34;286&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725_hu1153595205028313611.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725_hu1516290461768635010.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725_hu1153595205028313611.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952322725_hu1516290461768635010.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1607,10 +1764,10 @@
 &lt;/ul&gt;
 &lt;p&gt;query(value) -&amp;gt; key&lt;/p&gt;
 &lt;h2 id=&#34;非参注意力池化层&#34;&gt;非参注意力池化层
-&lt;/h2&gt;&lt;p&gt;平均池化：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486.png&#34;
+&lt;/h2&gt;&lt;p&gt;平均池化：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486.png&#34;
 	width=&#34;174&#34;
 	height=&#34;90&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486_hu13648266011181178899.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486_hu18286143212517730684.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486_hu13648266011181178899.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952323486_hu18286143212517730684.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1619,10 +1776,10 @@
 		data-flex-basis=&#34;464px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;Nadaraya-Watson 核回归：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577.png&#34;
+&lt;p&gt;Nadaraya-Watson 核回归：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577.png&#34;
 	width=&#34;494&#34;
 	height=&#34;175&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577_hu10581845751707694530.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577_hu15357237778132743078.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577_hu10581845751707694530.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952327577_hu15357237778132743078.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1631,10 +1788,10 @@
 		data-flex-basis=&#34;677px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;使用高斯核：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661.png&#34;
+&lt;p&gt;使用高斯核：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661.png&#34;
 	width=&#34;288&#34;
 	height=&#34;88&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661_hu10176903029600938473.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661_hu16998355911656379372.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661_hu10176903029600938473.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952331661_hu16998355911656379372.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1643,10 +1800,10 @@
 		data-flex-basis=&#34;785px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;则&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530.png&#34;
+&lt;p&gt;则&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530.png&#34;
 	width=&#34;416&#34;
 	height=&#34;200&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530_hu9112608277911712162.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530_hu3338650403188680321.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530_hu9112608277911712162.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334530_hu3338650403188680321.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1655,10 +1812,10 @@
 		data-flex-basis=&#34;499px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;f(x) 可写作&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432.png&#34;
+&lt;p&gt;f(x) 可写作&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432.png&#34;
 	width=&#34;201&#34;
 	height=&#34;72&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432_hu10719397805932099218.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432_hu354115151073957613.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432_hu10719397805932099218.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952337432_hu354115151073957613.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1733,10 +1890,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plot_kernel_reg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_hat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887.png&#34;
 	width=&#34;360&#34;
 	height=&#34;239&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887_hu17090918641968984905.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887_hu3833858697115153008.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887_hu17090918641968984905.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952339887_hu3833858697115153008.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1770,10 +1927,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plot_kernel_reg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_hat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704.png&#34;
 	width=&#34;385&#34;
 	height=&#34;241&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704_hu15822283243320209631.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704_hu1757906943108085412.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704_hu15822283243320209631.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952334704_hu1757906943108085412.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1794,10 +1951,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  &lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Sorted testing inputs&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466.png&#34;
 	width=&#34;290&#34;
 	height=&#34;201&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466_hu13338008876163323246.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466_hu124693604237345161.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466_hu13338008876163323246.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952347466_hu124693604237345161.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1929,10 +2086,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plot_kernel_reg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y_hat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134.png&#34;
 	width=&#34;319&#34;
 	height=&#34;242&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134_hu17641358106988836205.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134_hu1723777386572091318.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134_hu17641358106988836205.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952346134_hu1723777386572091318.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1953,10 +2110,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  &lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Sorted testing inputs&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272.png&#34;
 	width=&#34;258&#34;
 	height=&#34;208&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272_hu13866876646403473765.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272_hu521882402940855893.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272_hu13866876646403473765.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356272_hu521882402940855893.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1968,10 +2125,10 @@
 &lt;h1 id=&#34;注意力分数&#34;&gt;注意力分数
 &lt;/h1&gt;&lt;h2 id=&#34;主要思想-1&#34;&gt;主要思想
 &lt;/h2&gt;&lt;p&gt;注意力分数是 query 和 key 的相似度，softmax 后得到注意力权重&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856.png&#34;
 	width=&#34;478&#34;
 	height=&#34;308&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856_hu5024497840554624309.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856_hu2017842552227500960.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856_hu5024497840554624309.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952357856_hu2017842552227500960.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1980,10 +2137,10 @@
 		data-flex-basis=&#34;372px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861.png&#34;
 	width=&#34;541&#34;
 	height=&#34;159&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861_hu9606515341705860772.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861_hu3269075494817453776.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861_hu9606515341705860772.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952356861_hu3269075494817453776.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1996,10 +2153,10 @@
 &lt;ul&gt;
 &lt;li&gt;拓展到高维度&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283.png&#34;
 	width=&#34;440&#34;
 	height=&#34;71&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283_hu17246858649299923682.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283_hu16889071086240074175.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283_hu17246858649299923682.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362283_hu16889071086240074175.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2008,10 +2165,10 @@
 		data-flex-basis=&#34;1487px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171.png&#34;
 	width=&#34;478&#34;
 	height=&#34;60&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171_hu5631186306295526180.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171_hu8556157274197538804.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171_hu5631186306295526180.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952361171_hu8556157274197538804.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2104,10 +2261,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;加性注意力-additive-attention&#34;&gt;加性注意力 Additive Attention
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415.png&#34;
 	width=&#34;376&#34;
 	height=&#34;120&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415_hu12523045498631652415.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415_hu3007649080762919295.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415_hu12523045498631652415.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368415_hu3007649080762919295.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2211,10 +2368,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  &lt;span class=&#34;n&#34;&gt;xlabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Keys&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Queries&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379.png&#34;
 	width=&#34;272&#34;
 	height=&#34;147&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379_hu11382069910893973504.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379_hu9571746518252187361.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379_hu11382069910893973504.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952362379_hu9571746518252187361.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2226,10 +2383,10 @@
 &lt;h2 id=&#34;缩放点积注意力-scaled-dot-product-attention&#34;&gt;缩放点积注意力 Scaled Dot Product Attention
 &lt;/h2&gt;&lt;p&gt;几何角度解释：两向量方向越接近，点积越大&lt;/p&gt;
 &lt;p&gt;当 q 和 k 的长度都为 d 时，做内积，然后除以$ \sqrt{d} $来避免对长度敏感&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008.png&#34;
 	width=&#34;182&#34;
 	height=&#34;35&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008_hu7943141927757349165.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008_hu9177926651498459129.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008_hu7943141927757349165.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952368008_hu9177926651498459129.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2241,10 +2398,10 @@
 &lt;ul&gt;
 &lt;li&gt;从小批量角度考虑：基于 n 个 query 和 m 个 k-v&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582.png&#34;
 	width=&#34;256&#34;
 	height=&#34;64&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582_hu16645755090855318092.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582_hu18177324323345942832.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582_hu16645755090855318092.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952367582_hu18177324323345942832.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2314,10 +2471,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  &lt;span class=&#34;n&#34;&gt;xlabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Keys&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Queries&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667.png&#34;
 	width=&#34;272&#34;
 	height=&#34;150&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667_hu10062447241992057590.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667_hu17381390250545670939.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667_hu10062447241992057590.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952375667_hu17381390250545670939.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2331,10 +2488,10 @@
 &lt;/h2&gt;&lt;p&gt;机器翻译中，每个生成的词可能相关于源句子中不同的词&lt;/p&gt;
 &lt;p&gt;在翻译时希望将注意力关注在源句子中对应的部分&lt;/p&gt;
 &lt;p&gt;传统 seq2seq 会将 RNN 中最后一个 state 作为解码时的初始状态&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416.png&#34;
 	width=&#34;570&#34;
 	height=&#34;265&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416_hu9254101438149081696.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416_hu6681134052746105415.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416_hu9254101438149081696.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373416_hu6681134052746105415.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2593,10 +2750,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;xlabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Key positions&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Query positions&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662.png&#34;
 	width=&#34;247&#34;
 	height=&#34;261&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662_hu2250264372296707627.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662_hu5184328645554457667.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662_hu2250264372296707627.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952374662_hu5184328645554457667.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2607,10 +2764,10 @@
 &gt;&lt;/p&gt;
 &lt;h1 id=&#34;自注意力和位置编码&#34;&gt;自注意力和位置编码
 &lt;/h1&gt;&lt;h2 id=&#34;自注意力&#34;&gt;自注意力
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369.png&#34;
 	width=&#34;311&#34;
 	height=&#34;189&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369_hu1888219345298157211.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369_hu7211964912759587747.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369_hu1888219345298157211.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952373369_hu7211964912759587747.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2620,10 +2777,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;将 x_i 作为 query，所有 (x, x) 作为 key-value 对序列抽取特征得到 y_i&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495.png&#34;
 	width=&#34;318&#34;
 	height=&#34;29&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495_hu13613756523769769809.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495_hu3006871647829367623.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495_hu13613756523769769809.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952372495_hu3006871647829367623.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2633,10 +2790,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;比较-cnnrnnself-attention&#34;&gt;比较 CNN、RNN、Self-attention
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503.png&#34;
 	width=&#34;697&#34;
 	height=&#34;400&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503_hu8373162565037188623.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503_hu9052794634617445300.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503_hu8373162565037188623.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385503_hu9052794634617445300.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2645,10 +2802,10 @@
 		data-flex-basis=&#34;418px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186.png&#34;
 	width=&#34;455&#34;
 	height=&#34;141&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186_hu376210068299864716.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186_hu369243924325623630.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186_hu376210068299864716.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952384186_hu369243924325623630.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2666,10 +2823,10 @@
 &lt;li&gt;于 CNN/RNN 不同，自注意力没有记录位置信息&lt;/li&gt;
 &lt;li&gt;位置编码将位置信息注入到输入中&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931.png&#34;
 	width=&#34;657&#34;
 	height=&#34;62&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931_hu12602745499980398857.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931_hu17810826358655465937.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931_hu12602745499980398857.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385931_hu17810826358655465937.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2678,10 +2835,10 @@
 		data-flex-basis=&#34;2543px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606.png&#34;
 	width=&#34;233&#34;
 	height=&#34;105&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606_hu14471669903651109727.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606_hu1725192318489546840.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606_hu14471669903651109727.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952383606_hu1725192318489546840.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2730,10 +2887,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dropout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669.png&#34;
 	width=&#34;545&#34;
 	height=&#34;256&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669_hu14769788765629128987.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669_hu18405532453381294044.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669_hu14769788765629128987.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952385669_hu18405532453381294044.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2744,10 +2901,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;绝对位置信息&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;计算机使用二进制编码，越低位次变化的频率越大（例如最低位总是 01 交替）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291.png&#34;
 	width=&#34;232&#34;
 	height=&#34;189&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291_hu3763534078435702741.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291_hu14440430336449987582.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291_hu3763534078435702741.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952394291_hu14440430336449987582.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2755,10 +2912,10 @@
 		data-flex-grow=&#34;122&#34;
 		data-flex-basis=&#34;294px&#34;
 	
-&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465.png&#34;
+&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465.png&#34;
 	width=&#34;325&#34;
 	height=&#34;364&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465_hu15899766637452252263.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465_hu15353571804061343507.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465_hu15899766637452252263.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952393465_hu15353571804061343507.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2768,10 +2925,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;相对位置信息&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096.png&#34;
 	width=&#34;154&#34;
 	height=&#34;26&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096_hu4505935140330192126.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096_hu10315427621700364569.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096_hu4505935140330192126.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952395096_hu10315427621700364569.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2780,10 +2937,10 @@
 		data-flex-basis=&#34;1421px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174.png&#34;
 	width=&#34;485&#34;
 	height=&#34;96&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174_hu17779415967681894811.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174_hu1331568623023877399.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174_hu17779415967681894811.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952397174_hu1331568623023877399.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2799,10 +2956,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;相比于 seq2seq，Transformer 没有使用 RNN，是纯基于注意力&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611.png&#34;
 	width=&#34;593&#34;
 	height=&#34;710&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611_hu10801397982140309920.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611_hu9170348995267654688.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611_hu10801397982140309920.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952396611_hu9170348995267654688.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2813,10 +2970,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;多头注意力&#34;&gt;多头注意力
 &lt;/h2&gt;&lt;h3 id=&#34;思想&#34;&gt;思想
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502.png&#34;
 	width=&#34;423&#34;
 	height=&#34;258&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502_hu17761847578408774469.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502_hu214577362571104832.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502_hu17761847578408774469.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402502_hu214577362571104832.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2826,10 +2983,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;输入的 q、k、v：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348.png&#34;
+&lt;li&gt;输入的 q、k、v：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348.png&#34;
 	width=&#34;580&#34;
 	height=&#34;35&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348_hu187627555384300879.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348_hu12248360733953885407.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348_hu187627555384300879.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952405348_hu12248360733953885407.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2838,10 +2995,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 		data-flex-basis=&#34;3977px&#34;
 	
 &gt;&lt;/li&gt;
-&lt;li&gt;头 i 的可学习参数（全连接层）：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714.png&#34;
+&lt;li&gt;头 i 的可学习参数（全连接层）：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714.png&#34;
 	width=&#34;539&#34;
 	height=&#34;43&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714_hu14586203556748344461.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714_hu13557509326722578729.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714_hu14586203556748344461.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952407714_hu13557509326722578729.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2850,10 +3007,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 		data-flex-basis=&#34;3008px&#34;
 	
 &gt;&lt;/li&gt;
-&lt;li&gt;头 i 的输出（注意力层）：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012.png&#34;
+&lt;li&gt;头 i 的输出（注意力层）：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012.png&#34;
 	width=&#34;425&#34;
 	height=&#34;46&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012_hu9456771289190085394.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012_hu4657207250980732006.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012_hu9456771289190085394.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952402012_hu4657207250980732006.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2862,10 +3019,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 		data-flex-basis=&#34;2217px&#34;
 	
 &gt;&lt;/li&gt;
-&lt;li&gt;输出的可学习参数（顶部全连接层）：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212.png&#34;
+&lt;li&gt;输出的可学习参数（顶部全连接层）：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212.png&#34;
 	width=&#34;174&#34;
 	height=&#34;37&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212_hu165918823646699510.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212_hu7943817861427626455.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212_hu165918823646699510.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952401212_hu7943817861427626455.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2874,10 +3031,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 		data-flex-basis=&#34;1128px&#34;
 	
 &gt;&lt;/li&gt;
-&lt;li&gt;多头注意力的输出：&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111.png&#34;
+&lt;li&gt;多头注意力的输出：&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111.png&#34;
 	width=&#34;204&#34;
 	height=&#34;127&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111_hu11923616465975186450.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111_hu12731298446207912522.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111_hu11923616465975186450.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952408111_hu12731298446207912522.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2893,10 +3050,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &lt;li&gt;通过掩码实现：计算 x_i 的输出时，假设当前序列长度为 i，计算 softmax 时后续序列无权重&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;代码实现&#34;&gt;代码实现
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078.png&#34;
 	width=&#34;1398&#34;
 	height=&#34;1231&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078_hu12105709201339165021.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078_hu17988513896653370651.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078_hu12105709201339165021.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952414078_hu17988513896653370651.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -2905,10 +3062,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 		data-flex-basis=&#34;272px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248.png&#34;
 	width=&#34;1492&#34;
 	height=&#34;1437&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248_hu68679921124157916.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248_hu185381220914429630.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248_hu68679921124157916.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952416248_hu185381220914429630.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3145,10 +3302,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;残差连接和层归一化&#34;&gt;残差连接和层归一化
-&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251.png&#34;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251.png&#34;
 	width=&#34;156&#34;
 	height=&#34;165&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251_hu692387117156582110.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251_hu4326516223574411697.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251_hu692387117156582110.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952418251_hu4326516223574411697.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3160,10 +3317,10 @@ $因此可以学到不同词之间的相对位置&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在归一化时要进行层归一化而不是批量归一化，层归一化操作的数据归属于一个序列&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019.png&#34;
 	width=&#34;491&#34;
 	height=&#34;238&#34;
-	srcset=&#34;https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019_hu17059946703952508652.png 480w, https://changle-liu.github.io/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019_hu11812130662416261964.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019_hu17059946703952508652.png 480w, http://localhost:1313/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0952424019_hu11812130662416261964.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
