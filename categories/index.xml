@@ -2,26 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on 刘常乐的个人博客</title>
-        <link>http://localhost:1313/categories/</link>
+        <link>https://changle-liu.github.io/categories/</link>
         <description>Recent content in Categories on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 05 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>LLM</title>
-        <link>http://localhost:1313/categories/llm/</link>
+        <link>https://changle-liu.github.io/categories/llm/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/llm/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/llm/LLM.jpg" alt="Featured image of post LLM" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/llm/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/llm/LLM.jpg" alt="Featured image of post LLM" /&gt;</description>
         </item>
         <item>
         <title>深度学习</title>
-        <link>http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/dl.png" alt="Featured image of post 深度学习" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/dl.png" alt="Featured image of post 深度学习" /&gt;</description>
+        </item>
+        <item>
+        <title>Test</title>
+        <link>https://changle-liu.github.io/categories/test/</link>
+        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/categories/test/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>测试</title>
+        <link>https://changle-liu.github.io/categories/%E6%B5%8B%E8%AF%95/</link>
+        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/categories/%E6%B5%8B%E8%AF%95/</guid>
+        <description></description>
         </item>
         
     </channel>
