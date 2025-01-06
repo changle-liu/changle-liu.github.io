@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 马尔可夫模型：只和过去$ \\tau $个数据点有关 ">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 ">
 <title>循环神经网络-动手学深度学习</title>
 
 <link rel='canonical' href='https://changle-liu.github.io/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="循环神经网络-动手学深度学习">
-<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 马尔可夫模型：只和过去$ \\tau $个数据点有关 ">
+<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 ">
 <meta property='og:url' content='https://changle-liu.github.io/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-09-21T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="循环神经网络-动手学深度学习">
-<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 马尔可夫模型：只和过去$ \\tau $个数据点有关 ">
+<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n序列模型 思路 在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量 自回归模型：对见过的数据建模 ">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -302,7 +302,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 05, 2025</time>
+                <time class="article-time--published">Sep 21, 2024</time>
             </div>
         
 
@@ -340,70 +340,98 @@
 </h2><ul>
 <li>在时间 t 观察到$ x_t $，得到 T 个不独立的随机变量</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726644202043-1ea166e0-0889-4957-85bb-d2c061c47c34.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306726.png"
+	width="687"
+	height="35"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306726_hu3047735741780460170.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306726_hu1484959234776649638.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1962"
+		data-flex-basis="4710px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726644208561-8cfac11f-8c3a-4f10-869e-965369d7c1de.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303007.png"
+	width="745"
+	height="41"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303007_hu15961576629563286234.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303007_hu14603689192351338171.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1817"
+		data-flex-basis="4360px"
 	
 ></p>
 <ul>
 <li>自回归模型：对见过的数据建模</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726644267568-98296722-be2d-41d8-ac67-7ddae6b573e1.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306612.png"
+	width="445"
+	height="35"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306612_hu2824636387813313410.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306612_hu13507154786253403055.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1271"
+		data-flex-basis="3051px"
 	
 ></p>
 <ul>
 <li>马尔可夫模型：只和过去$ \tau $个数据点有关</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726644660838-f3dc4e68-8521-4672-93f0-f7707cdf8e6d.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951302404.png"
+	width="423"
+	height="43"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951302404_hu13262569902164092717.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951302404_hu11663030655905732937.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="983"
+		data-flex-basis="2360px"
 	
 ></p>
 <p>用 MLP 即可建模</p>
 <ul>
 <li>潜变量模型</li>
 </ul>
-<p>引入潜变量$ h_t $表示过去的信息<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726645224523-316803a3-56ea-460a-ae2c-be53813be6d3.png"
-	
-	
-	
+<p>引入潜变量$ h_t $表示过去的信息<img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305410.png"
+	width="199"
+	height="38"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305410_hu17206607681217088693.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305410_hu16383999796430517136.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="523"
+		data-flex-basis="1256px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726645232700-93a9daa6-601a-4c50-88aa-d1aed1d35d40.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305831.png"
+	width="144"
+	height="35"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305831_hu10425895262460141404.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951305831_hu11804312586110912394.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="411"
+		data-flex-basis="987px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726645267777-d351cc39-17d3-4796-8d92-e0088850bee9.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309542.png"
+	width="484"
+	height="122"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309542_hu6954357476078055559.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309542_hu15034348679425691638.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="396"
+		data-flex-basis="952px"
 	
 ></p>
 <p>这使得 x 和 h 只与两个变量相关，方便建模</p>
@@ -521,30 +549,42 @@
 </span></span><span class="line"><span class="cl">         <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726649387099-def3e0f9-8183-4581-b3d4-a885103e37ad.png"
-	
-	
-	
+</div><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306587.png"
+	width="538"
+	height="270"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306587_hu17852550947290713474.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306587_hu9288085583538410616.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="478px"
 	
 ></p>
 <p>604 之后如果使用自己的预测数据来继续预测，由于错误的累积，效果不好（绿线）</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726649623443-8f69eef4-c9e5-4b42-9f87-c4d91cf7bf14.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303709.png"
+	width="542"
+	height="244"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303709_hu13648379287081742404.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951303709_hu10764177308253934775.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
 	
 ></p>
 <p>已知 4 个点，分别预测未来 1、4、16、64 个点</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726649822581-48e33838-f54b-4cde-af88-f028e88c46ed.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306524.png"
+	width="602"
+	height="279"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306524_hu12081849860702545925.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951306524_hu6544957469531582973.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
 	
 ></p>
 <h1 id="文本预处理">文本预处理
@@ -818,21 +858,29 @@
 </div><h1 id="语言模型和数据集">语言模型和数据集
 </h1><h2 id="语言模型">语言模型
 </h2><p>给定文本序列$ x_1, &hellip;x_T $，语言模型目标是估计联合概率$ p(x_1, &hellip;, x_T) $</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726724754161-b5251f78-e5e7-4c69-bb60-bce2d3eb3e3b.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309188.png"
+	width="676"
+	height="76"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309188_hu13530244155780710243.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951309188_hu11347197940642468141.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="889"
+		data-flex-basis="2134px"
 	
 ></p>
 <p>当序列很长时，可使用马尔可夫假设</p>
-<p>三元语法：<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726724919659-46d24677-e15c-4162-a88b-3309765adb2b.png"
-	
-	
-	
+<p>三元语法：<img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951308872.png"
+	width="443"
+	height="20"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951308872_hu16264456844078763018.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951308872_hu8409178176215145046.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="2215"
+		data-flex-basis="5316px"
 	
 ></p>
 <h2 id="自然语言统计">自然语言统计
@@ -899,12 +947,16 @@
 </span></span><span class="line"><span class="cl">         <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726726239838-6ddc6c7e-97e4-42aa-9d5a-bb720886af70.png"
-	
-	
-	
+</div><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951317854.png"
+	width="301"
+	height="184"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951317854_hu13884938763843468037.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951317854_hu2800852000509840885.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="392px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -995,24 +1047,32 @@
 </span></span><span class="line"><span class="cl">         <span class="n">legend</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;unigram&#39;</span><span class="p">,</span> <span class="s1">&#39;bigram&#39;</span><span class="p">,</span> <span class="s1">&#39;trigram&#39;</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726727015061-d8425c8e-5c43-46ff-a567-56170bfe9dac.png"
-	
-	
-	
+</div><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318546.png"
+	width="384"
+	height="243"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318546_hu3049132300416216369.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318546_hu7318293460286534464.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="379px"
 	
 ></p>
 <h2 id="读取长序列数据">读取长序列数据
 </h2><h3 id="随机采样">随机采样
 </h3><p>在 0 到 T-1 之间随机选取起始位置，每 T 个 token 分成一个 batch</p>
 <p>这样可以减小切分处序列的影响</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726730198653-28f68b50-629e-401b-8bc9-5fe6bec3797c.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315373.png"
+	width="349"
+	height="176"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315373_hu11559912857757965168.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315373_hu5132491117442054924.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="475px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -1185,31 +1245,43 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="循环神经网络-rnn">循环神经网络 RNN
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726735908014-84b1b3c2-5de6-45e1-928e-74c349446c6b.png"
-	
-	
-	
+</h1><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951314264.png"
+	width="492"
+	height="180"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951314264_hu100826123168983675.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951314264_hu12448493607316705507.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="273"
+		data-flex-basis="656px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726735933590-0df31dcf-0dfc-41e3-8972-019dfb5aac42.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311593.png"
+	width="367"
+	height="46"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311593_hu1766675695441794789.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311593_hu34102247128186547.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="797"
+		data-flex-basis="1914px"
 	
 ></p>
 <p>相比于 MLP 加入了隐变量</p>
 <p><strong>困惑度 Perplexity</strong></p>
 <p>衡量语言模型好坏时可以用平均交叉熵，平均交叉熵时一个序列中所有的 n 个词元的交叉熵损失的平均值</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726736444954-1ec37d86-df91-412c-a495-9d78c8f6cb3f.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951316049.png"
+	width="346"
+	height="77"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951316049_hu1184737098456570634.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951316049_hu5121710058190277069.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="449"
+		data-flex-basis="1078px"
 	
 ></p>
 <p>NLP 中使用困惑度来衡量：$ exp(\pi) $</p>
@@ -1219,22 +1291,30 @@
 <p>梯度裁剪来防止梯度爆炸</p>
 <p>梯度长度超过$ \theta $时，拖影回长度$ \theta
 $</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726746009321-b3c185a2-49a0-4375-b566-c59275469f83.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311132.png"
+	width="333"
+	height="134"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311132_hu597474712143078716.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951311132_hu11176433935778096626.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="596px"
 	
 ></p>
 <p>确保了梯度不会大于 1</p>
 <p><strong>RNN 应用</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726746809700-58e6ad0d-c26e-46c9-bbae-e7a17071dadb.png"
-	
-	
-	
+<p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318286.png"
+	width="1055"
+	height="421"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318286_hu15570411307427091081.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951318286_hu4381840676625573668.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="601px"
 	
 ></p>
 <h2 id="从零实现">从零实现
@@ -1729,12 +1809,16 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="n">train_ch8</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">train_iter</span><span class="p">,</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">d2l</span><span class="o">.</span><span class="n">try_gpu</span><span class="p">())</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726884930523-5eeffe5b-22a6-4a67-8b79-820519f62c43.png"
-	
-	
-	
+</div><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315343.png"
+	width="487"
+	height="307"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315343_hu8137171715740598800.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951315343_hu8738053147851647349.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -1753,12 +1837,16 @@ $</p>
 </span></span><span class="line"><span class="cl">          <span class="n">use_random_iter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726884964767-b3bc37fb-02d9-4308-a83f-a12f382c72f7.png"
-	
-	
-	
+</div><p><img src="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951313081.png"
+	width="474"
+	height="307"
+	srcset="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951313081_hu13059287660486222858.png 480w, /p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0951313081_hu3883956044609708539.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
 	
 ></p>
 <h2 id="简洁实现">简洁实现
@@ -1955,38 +2043,25 @@ $</p>
             
                 
 <article class="">
+    <a href="/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自然语言处理基础-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">优化算法-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">卷积神经网络-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">多层感知机-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -2007,12 +2082,25 @@ $</p>
             
                 
 <article class="">
-    <a href="/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">深度学习计算-动手学深度学习</h2>
+            <h2 class="article-title">现代循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">计算性能-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -2025,6 +2113,48 @@ $</p>
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">

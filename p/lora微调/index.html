@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="LoRA 外的其他微调方法 Adapter类 PEFT技术通过在预训练模型的各层之间插入较小的神经网络模块，这些新增的神经模块被称为&quot;适配器&quot;，在进行下游任务的微调时，只需对适配器参数进行训练便能实现高效微调的目标。\n">
 <title>LoRA微调</title>
 
-<link rel='canonical' href='https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/'>
+<link rel='canonical' href='http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="LoRA微调">
 <meta property='og:description' content="LoRA 外的其他微调方法 Adapter类 PEFT技术通过在预训练模型的各层之间插入较小的神经网络模块，这些新增的神经模块被称为&quot;适配器&quot;，在进行下游任务的微调时，只需对适配器参数进行训练便能实现高效微调的目标。\n">
-<meta property='og:url' content='https://changle-liu.github.io/p/lora%E5%BE%AE%E8%B0%83/'>
+<meta property='og:url' content='http://localhost:1313/p/lora%E5%BE%AE%E8%B0%83/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="LoRA微调">
@@ -324,12 +324,16 @@
     
     
     <h2 id="lora-外的其他微调方法">LoRA 外的其他微调方法
-</h2><p><img src="/image-0.png"
-	
-	
-	
+</h2><p><img src="/p/lora%E5%BE%AE%E8%B0%83/images/image-0.png"
+	width="1082"
+	height="1120"
+	srcset="/p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu3270889673185656373.png 480w, /p/lora%E5%BE%AE%E8%B0%83/images/image-0_hu4733665919134901706.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="96"
+		data-flex-basis="231px"
 	
 ></p>
 <h3 id="adapter类">Adapter类
@@ -337,10 +341,10 @@
 <p>在此基础上衍生出了AdapterP、Parallel等高效微调技术；</p>
 <p><strong>Adapter Tuning</strong></p>
 <p>设计了Adapter 结构，将其嵌入 Transformer 的结构里面，在训练时，固定住原来预训练模型的参数不变，只对新增的 Adapter 结构进行微调。</p>
-<p><img src="/p/lora%E5%BE%AE%E8%B0%83/image-1.png"
+<p><img src="/p/lora%E5%BE%AE%E8%B0%83/images/image-1.png"
 	width="648"
 	height="472"
-	srcset="/p/lora%E5%BE%AE%E8%B0%83/image-1_hu16290528256386821728.png 480w, /p/lora%E5%BE%AE%E8%B0%83/image-1_hu11487373274832207708.png 1024w"
+	srcset="/p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu16290528256386821728.png 480w, /p/lora%E5%BE%AE%E8%B0%83/images/image-1_hu11487373274832207708.png 1024w"
 	loading="lazy"
 	
 	
@@ -540,7 +544,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.2b702e6532fb8d89f3b4a0a724bcb73bc2f676a008d93a6a0b2f27d311661a1d.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

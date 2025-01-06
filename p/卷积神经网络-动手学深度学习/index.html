@@ -10,7 +10,7 @@
 <meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n从全连接层到卷积 不变性 平移不变性：和检测对象的位置无关 局部性：只考虑检测对象的局部区域特征 重新考察全连接层 输入和输出变形为矩阵 权重变为4维张量 v：w的重新索引：k = i + a, l = j + b ">
 <meta property='og:url' content='https://changle-liu.github.io/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-09-10T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="卷积神经网络-动手学深度学习">
 <meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n从全连接层到卷积 不变性 平移不变性：和检测对象的位置无关 局部性：只考虑检测对象的局部区域特征 重新考察全连接层 输入和输出变形为矩阵 权重变为4维张量 v：w的重新索引：k = i + a, l = j + b ">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -305,7 +305,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 05, 2025</time>
+                <time class="article-time--published">Sep 10, 2024</time>
             </div>
         
 
@@ -350,68 +350,96 @@
 <li>权重变为4维张量</li>
 <li>v：w的重新索引：k = i + a, l = j + b</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725785791934-1ee97d9a-c71c-4b06-a769-c95439092a81.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352395.png"
+	width="531"
+	height="121"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352395_hu1238339499589740153.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352395_hu10452095779783633061.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="438"
+		data-flex-basis="1053px"
 	
 ></p>
 <p><strong>平移不变性</strong> =&gt; v 不依赖于 i 和 j</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725786057925-cfbdbae8-8a47-447a-a171-9a77aa8d7206.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949356258.png"
+	width="320"
+	height="161"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949356258_hu15032224198962483848.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949356258_hu2630364844442248453.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
 	
 ></p>
 <p><strong>局部性</strong> =&gt; 不必使用远离$ x_{i, j} $的参数</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725786213158-35691162-e520-4714-a84b-58929647faba.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949354061.png"
+	width="522"
+	height="160"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949354061_hu579214877734041171.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949354061_hu6316551754398638390.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="326"
+		data-flex-basis="783px"
 	
 ></p>
 <h1 id="卷积层">卷积层
 </h1><h2 id="互相关运算">互相关运算
 </h2><p>互相关运算：cross-correlation</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725850653022-3d02bdfc-373c-45bd-83af-89e0dcd93565.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949358427.png"
+	width="318"
+	height="114"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949358427_hu4313611805693527639.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949358427_hu12674660984666246444.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="278"
+		data-flex-basis="669px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725850668735-a1c79d65-71da-4fe4-af17-3f69a0213968.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949353954.png"
+	width="300"
+	height="25"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949353954_hu10120406292197476989.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949353954_hu14828113884120345413.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1200"
+		data-flex-basis="2880px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725851335133-28728104-acba-4f85-980a-0a9ab484b01c.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949359928.png"
+	width="421"
+	height="276"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949359928_hu4324478281028287719.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949359928_hu12121943689630451130.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="152"
+		data-flex-basis="366px"
 	
 ></p>
 <ul>
 <li>交叉相关和卷积的区别</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725851237333-1d710dbd-24ad-4575-ba3f-e8fcf72257f7.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352671.png"
+	width="555"
+	height="235"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352671_hu16022621068592185232.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949352671_hu10679676601836980708.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="236"
+		data-flex-basis="566px"
 	
 ></p>
 <p>由上可实现：</p>
@@ -464,12 +492,16 @@
 </div><h2 id="目标边缘检测">目标边缘检测
 </h2><p>简单应用：检测图像中不同颜色的边缘</p>
 <p>现有如下黑白图像（0黑1白）：</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725856399925-a8dde7a6-a214-42c4-ac58-02e08128be1d.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361497.png"
+	width="345"
+	height="209"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361497_hu8439442801863736711.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361497_hu9402639423534539405.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -590,20 +622,28 @@
 </h2><p>在输入图像的周围添加额外的行/列</p>
 <ul>
 <li>
-<p>填充$ p_h $行和$ p_w $列，填充后输出的形状为<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725858608631-cb744823-a8f9-4be8-9969-056208085269.png"
-	
-	
-	
+<p>填充$ p_h $行和$ p_w $列，填充后输出的形状为<img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365041.png"
+	width="335"
+	height="28"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365041_hu10356927098408225260.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365041_hu9194367210602510941.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1196"
+		data-flex-basis="2871px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725858626991-e8700a88-6a82-4ad1-af68-808e50562555.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949368903.png"
+	width="564"
+	height="198"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949368903_hu14613784678443702864.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949368903_hu11176875395676629367.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="284"
+		data-flex-basis="683px"
 	
 >（很少使用偶数核）</p>
 </li>
@@ -611,12 +651,16 @@
 <p>这样取值使得输出形状变为$ n_h * n_w $</p>
 <h2 id="步幅">步幅
 </h2><p>每次滑动窗口时移动对应步幅数</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725859006116-06502fc0-f772-441b-ac00-bd1bcb1367de.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949369928.png"
+	width="658"
+	height="380"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949369928_hu7403851139647240253.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949369928_hu7695895522830146065.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="415px"
 	
 ></p>
 <h2 id="代码实现">代码实现
@@ -683,42 +727,58 @@
 </div><h1 id="多输入多输出通道">多输入多输出通道
 </h1><p>彩色图片 = RGB三通道</p>
 <h2 id="多输入通道">多输入通道
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725864611929-24de1ad5-c702-4683-9398-6021b08ba563.png"
-	
-	
-	
+</h2><p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949366800.png"
+	width="494"
+	height="236"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949366800_hu15642994333176426714.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949366800_hu10419934612085221229.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
 	
 ></p>
 <p>每个通道均执行互相关操作，然后将结果相加</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725864686861-ccb04c74-ae14-49ba-8f56-ae5da0d22997.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361546.png"
+	width="377"
+	height="284"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361546_hu17602059028142673036.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361546_hu12104935619747526429.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
 	
 ></p>
 <h2 id="多输出通道">多输出通道
 </h2><p>多个三位卷积核，每个核生成自己的输出通道，每个输出通道可以识别特定模式</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725868351309-011add39-aa72-44dc-ac2f-53a34fe206ac.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365075.png"
+	width="526"
+	height="223"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365075_hu16373780918320987067.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949365075_hu1633804211499800263.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="235"
+		data-flex-basis="566px"
 	
 ></p>
 <h2 id="1x1卷积层">1x1卷积层
 </h2><p>$ k_h = k_w = 1 $</p>
 <p>不识别空间模式，只把通道进行加权融合</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725868746662-45ed72ad-ea75-4a68-acab-86b650194b44.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949362656.png"
+	width="401"
+	height="151"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949362656_hu5598249060057949964.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949362656_hu15429174421792279450.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="265"
+		data-flex-basis="637px"
 	
 ></p>
 <h2 id="代码实现-1">代码实现
@@ -838,12 +898,16 @@
 </h1><p>池化层/汇聚层 Pooling：降低卷积层对位置的敏感性</p>
 <h2 id="二维最大池化">二维最大池化
 </h2><p>将滑动窗口中的最大值输出</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725945732748-73787c20-f90f-4480-b89c-5ff7d85a7ad8.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949363810.png"
+	width="267"
+	height="111"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949363810_hu3271632503372143878.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949363810_hu13760185368742845171.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="577px"
 	
 ></p>
 <ul>
@@ -975,24 +1039,32 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="lenet">LeNet
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725947276824-f017af28-0082-48b2-a4db-f5218ca0018d.png"
-	
-	
-	
+</h1><p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361578.png"
+	width="806"
+	height="353"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361578_hu15048054861186769349.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949361578_hu12114864825962239836.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="228"
+		data-flex-basis="547px"
 	
 ></p>
 <ul>
 <li>卷积层学习图片空间信息</li>
 <li>全连接层转换到类别空间</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725947609835-239d4a91-1f5b-4442-bac4-5442ca3e640d.png"
-	
-	
-	
+<p><img src="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949373768.png"
+	width="242"
+	height="395"
+	srcset="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949373768_hu15600016662846304606.png 480w, /p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0949373768_hu17160897522231126262.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="61"
+		data-flex-basis="147px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -1075,38 +1147,25 @@
             
                 
 <article class="">
+    <a href="/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自然语言处理基础-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">优化算法-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">多层感知机-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -1127,12 +1186,25 @@
             
                 
 <article class="">
-    <a href="/p/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">深度学习计算-动手学深度学习</h2>
+            <h2 class="article-title">现代循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -1145,6 +1217,48 @@
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">

@@ -10,7 +10,7 @@
 <meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n深度卷积神经网络 AlexNet AlexNet 相比于LeNet：\n更深更宽 激活函数从sigmoid变成ReLU（减缓梯度消失） 隐藏全连接层后加入了丢弃层 数据增强 ">
 <meta property='og:url' content='https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-09-12T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="现代卷积神经网络-动手学深度学习">
 <meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n深度卷积神经网络 AlexNet AlexNet 相比于LeNet：\n更深更宽 激活函数从sigmoid变成ReLU（减缓梯度消失） 隐藏全连接层后加入了丢弃层 数据增强 ">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -303,7 +303,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 05, 2025</time>
+                <time class="article-time--published">Sep 12, 2024</time>
             </div>
         
 
@@ -345,12 +345,16 @@
 <li>隐藏全连接层后加入了丢弃层</li>
 <li>数据增强</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725951434835-1c9f23a7-8ff9-4053-aca1-b7eb6a21f3c5.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954015950.png"
+	width="462"
+	height="570"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954015950_hu1324131232983118074.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954015950_hu7734383713951011054.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="194px"
 	
 ></p>
 <h2 id="代码实现">代码实现
@@ -609,12 +613,16 @@
 </div>
 </div><h1 id="网络中的网络-nin">网络中的网络 NiN
 </h1><p>全连接层的问题：卷积层参数较少，但卷积层后的第一个全连接层参数过多</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726030097825-cf912673-7cc3-458f-a7e4-a316cb856062.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954019054.png"
+	width="359"
+	height="114"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954019054_hu7371563534224752633.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954019054_hu1372649168719087610.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="314"
+		data-flex-basis="755px"
 	
 ></p>
 <p>核心思想：</p>
@@ -622,12 +630,16 @@
 <li>NiN块：卷积层+2 个 1<em>1 卷积层， 1</em>1 卷积层前后的 ReLU 对每个像素增加了非线性性</li>
 <li>模型最后端采用全局平均池化层，来代替 VGG 和 AlexNet 中的全连接层 =&gt; 不容易过拟合，更少的参数</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726030711694-84894fac-57cc-451c-93da-9c5150aa1467.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954018373.png"
+	width="776"
+	height="609"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954018373_hu3707000496962801388.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954018373_hu2006657717522642398.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="305px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -740,12 +752,16 @@
 </div>
 </div><h1 id="含并行连结的网络-googlenet">含并行连结的网络 GoogLeNet
 </h1><h2 id="inception-块">Inception 块
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726033545833-f7563a6f-6ae5-4cf1-b354-7882c1ec19c5.png"
-	
-	
-	
+</h2><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954014047.png"
+	width="644"
+	height="338"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954014047_hu10291754440582359011.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954014047_hu2644560963869919252.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="457px"
 	
 ></p>
 <ul>
@@ -755,41 +771,57 @@
 <li>由后续各种变种 V2、V3、V4</li>
 </ul>
 <h2 id="googlenet">GoogLeNet
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726033842812-87445326-3371-4020-9b3b-6202cd6c779c.png"
-	
-	
-	
+</h2><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954023230.png"
+	width="283"
+	height="465"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954023230_hu8893802825423493027.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954023230_hu2465139741844582898.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="60"
+		data-flex-basis="146px"
 	
 ></p>
 <h3 id="stage-1--2">Stage 1 &amp; 2
 </h3><p>GoogLeNet 使用了更小的卷积层，最终的宽高更大，从而之后可以使用更深的网络</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726034078484-07580372-ed91-469e-ad85-a6bae3059426.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025675.png"
+	width="366"
+	height="348"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025675_hu13716583964304722275.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025675_hu5161992678229993889.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="105"
+		data-flex-basis="252px"
 	
 ></p>
 <h3 id="stage-3">Stage 3
-</h3><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726034378157-0e815b5a-8023-4eab-8e49-34ad96d884ad.png"
-	
-	
-	
+</h3><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022485.png"
+	width="604"
+	height="442"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022485_hu14501707277808097074.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022485_hu699379604675317152.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
 	
 ></p>
 <p>通道分配基本无规律可总结</p>
 <h3 id="stage-4--5">Stage 4 &amp; 5
-</h3><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726034502749-38615803-6ada-4987-b679-8933ea0bc635.png"
-	
-	
-	
+</h3><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025029.png"
+	width="356"
+	height="458"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025029_hu1070089124071536622.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025029_hu17493137340950381311.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="186px"
 	
 ></p>
 <h2 id="代码实现-1">代码实现
@@ -939,12 +971,16 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="批量归一化">批量归一化
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/webp/40712000/1726040074005-c49bd913-3603-472e-b057-ab56578f4afe.webp"
-	
-	
-	
+</h1><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025710.png"
+	width="345"
+	height="706"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025710_hu13687679543768758522.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025710_hu13241093265414123431.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="48"
+		data-flex-basis="117px"
 	
 ></p>
 <h2 id="核心思想">核心思想
@@ -953,20 +989,28 @@
 <li>能否在学习底部的时候尽量避免顶部的变化？</li>
 <li>变化是因为每层方差和均值不同，考虑将不同层的不同位置的小批量的分布固定</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726040740684-aecd42d6-d3f3-47f0-a297-613c72050fd7.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954026762.png"
+	width="615"
+	height="95"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954026762_hu8043587181455892567.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954026762_hu14526665032229197013.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="647"
+		data-flex-basis="1553px"
 	
 >（$ \epsilon $确保$ \sigma_B $不为 0）</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/webp/40712000/1726040763673-03f766cf-5410-40c4-ad3a-b98a0a5842eb.webp"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022837.png"
+	width="337"
+	height="124"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022837_hu2448602997057151410.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954022837_hu16087320151874367339.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="652px"
 	
 ></p>
 <h2 id="批量归一化层">批量归一化层
@@ -1181,12 +1225,16 @@
 </div><h1 id="残差网络-resnet">残差网络 ResNet
 </h1><p>由 VGG 更改而来</p>
 <p>计算底层梯度时可以直接通过右侧 1*1 卷积层，因此底层也可以得到较大的梯度，这使得 ResNet 可以训练出 1000 层的模型</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726118202801-bd0d5fa8-a1de-4bf8-8c42-940797dc99f3.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025953.png"
+	width="599"
+	height="342"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025953_hu6853128189854448443.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0954025953_hu6870198644883127873.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="420px"
 	
 ></p>
 <p>g(x) = f(x) + x</p>
@@ -1389,51 +1437,25 @@
             
                 
 <article class="">
+    <a href="/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自然语言处理基础-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">优化算法-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">卷积神经网络-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">多层感知机-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -1452,6 +1474,32 @@
 </article>
 
             
+                
+<article class="">
+    <a href="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">现代循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
         </div>
     </div>
 </aside>
@@ -1459,6 +1507,48 @@
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">

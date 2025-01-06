@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; $ \\eta $学习率：步长的超参数\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; ">
 <title>线性回归网络-动手学深度学习</title>
 
 <link rel='canonical' href='https://changle-liu.github.io/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="线性回归网络-动手学深度学习">
-<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; $ \\eta $学习率：步长的超参数\n">
+<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; ">
 <meta property='og:url' content='https://changle-liu.github.io/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-09-04T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="线性回归网络-动手学深度学习">
-<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; $ \\eta $学习率：步长的超参数\n">
+<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n线性回归 $ y = &lt;\\mathbf{w}, \\mathbf{x}&gt; + b $\n有显示解 可看作单层神经网络 损失函数 基础优化算法 梯度下降\n初始值w0 重复迭代t = 1, 2, 3 &hellip; ">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -288,7 +288,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 05, 2025</time>
+                <time class="article-time--published">Sep 04, 2024</time>
             </div>
         
 
@@ -327,21 +327,29 @@
 <li>有显示解</li>
 <li>可看作单层神经网络</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725427109374-f504887e-f213-45d9-9db0-49e4ab613bc0.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583298.png"
+	width="806"
+	height="322"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583298_hu5316400655605359632.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583298_hu14189036860253769993.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="600px"
 	
 ></p>
 <h2 id="损失函数">损失函数
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725427668722-acc3e0f6-96b0-4a0e-906f-192fac27b317.png"
-	
-	
-	
+</h2><p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955585215.png"
+	width="973"
+	height="142"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955585215_hu7770486524688012194.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955585215_hu10784662102209926935.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="685"
+		data-flex-basis="1644px"
 	
 ></p>
 <h2 id="基础优化算法">基础优化算法
@@ -350,12 +358,16 @@
 <li>初始值w0</li>
 <li>重复迭代t = 1, 2, 3 &hellip;</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725427518547-b8817a29-6c02-4049-aa53-ddf797ec3901.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955586985.png"
+	width="358"
+	height="126"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955586985_hu7195999597257481576.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955586985_hu14725396156636560806.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="284"
+		data-flex-basis="681px"
 	
 ></p>
 <p>$ \eta $学习率：步长的超参数</p>
@@ -389,12 +401,16 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>作图可观察到线性关系</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725428730169-80a72eb8-72d9-49ec-a039-5170fe917dfc.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955581200.png"
+	width="522"
+	height="382"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955581200_hu17841184479001501443.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955581200_hu286935908433105862.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -628,35 +644,47 @@
 </div>
 </div><h1 id="softmax回归">softmax回归
 </h1><h2 id="softmax回归-1">Softmax回归
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431182109-6e1bb1c9-4a7e-4929-af9a-d17cb246b1fa.png"
-	
-	
-	
+</h2><p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583439.png"
+	width="460"
+	height="231"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583439_hu1443088619554386266.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955583439_hu18022635031817877824.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="477px"
 	
 ></p>
 <ul>
 <li>对类别进行一位有效编码</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431157772-f2b3ab67-32d1-40a6-b8b9-4e79dde8fd88.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955588696.png"
+	width="335"
+	height="171"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955588696_hu5542469210990639897.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955588696_hu6773348613305438895.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="470px"
 	
 ></p>
 <ul>
 <li>使用均方损失训练</li>
 <li>输出匹配概率</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431308434-8baa3d49-67cf-4d52-9626-9f82b9a3a6ef.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955594843.png"
+	width="325"
+	height="193"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955594843_hu12529145025118795147.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955594843_hu15198560248132505540.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="404px"
 	
 ></p>
 <ul>
@@ -664,28 +692,40 @@
 </ul>
 <h2 id="交叉熵损失">交叉熵损失
 </h2><p>利用交叉熵来衡量两个概率的区别</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431413518-ac7d4b9b-90e7-41ac-986b-9ba370aac536.png"
-	
-	
-	
+<p><img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955593287.png"
+	width="418"
+	height="118"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955593287_hu3321079156811698412.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955593287_hu2996447733816687747.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="354"
+		data-flex-basis="850px"
 	
 ></p>
-<p>损失即为<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431440894-8141be93-a59b-40df-8928-46c8cbd4afac.png"
-	
-	
-	
+<p>损失即为<img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955597674.png"
+	width="548"
+	height="113"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955597674_hu15340738091861133888.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955597674_hu8158787849471945604.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="484"
+		data-flex-basis="1163px"
 	
 ></p>
-<p>梯度为真实概率和预测概率的区别<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1725431465158-7a3ba8d8-36a6-42a2-9193-13a829448292.png"
-	
-	
-	
+<p>梯度为真实概率和预测概率的区别<img src="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955598831.png"
+	width="473"
+	height="74"
+	srcset="/p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955598831_hu2170876962858010843.png 480w, /p/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955598831_hu13562882676355118803.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1534px"
 	
 ></p>
 <h2 id="从零实现-1">从零实现
@@ -904,51 +944,25 @@
             
                 
 <article class="">
+    <a href="/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自然语言处理基础-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">优化算法-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">卷积神经网络-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">多层感知机-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -967,6 +981,32 @@
 </article>
 
             
+                
+<article class="">
+    <a href="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">现代循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">循环神经网络-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
         </div>
     </div>
 </aside>
@@ -974,6 +1014,48 @@
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">

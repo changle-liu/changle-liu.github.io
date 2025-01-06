@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n$ R_t $中的值保持在 [0, 1] 范围内，代表了对过去状态的记忆程度，接近于 0 时会将先前的状态大幅度遗忘\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n">
 <title>现代循环神经网络-动手学深度学习</title>
 
 <link rel='canonical' href='https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="现代循环神经网络-动手学深度学习">
-<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n$ R_t $中的值保持在 [0, 1] 范围内，代表了对过去状态的记忆程度，接近于 0 时会将先前的状态大幅度遗忘\n">
+<meta property='og:description' content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n">
 <meta property='og:url' content='https://changle-liu.github.io/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='刘常乐的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-09-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-09-25T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="现代循环神经网络-动手学深度学习">
-<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n$ R_t $中的值保持在 [0, 1] 范围内，代表了对过去状态的记忆程度，接近于 0 时会将先前的状态大幅度遗忘\n">
+<meta name="twitter:description" content="动手学深度学习v2\n课程链接：https://courses.d2l.ai/zh-v2/\n门控循环单元 GRU 主要思想 不是每一个观察值都同等重要 更新门：关注 重置门：遗忘 候选隐状态\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -295,7 +295,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 05, 2025</time>
+                <time class="article-time--published">Sep 25, 2024</time>
             </div>
         
 
@@ -338,55 +338,79 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726897663878-312198ef-6ec4-4175-b29e-e9bc27096e67.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345099.png"
+	width="455"
+	height="361"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345099_hu8372042656002553611.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345099_hu10168911065205121092.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="302px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726897903687-91e80ba9-f4a2-4f5d-883d-e63e69f67c98.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347570.png"
+	width="282"
+	height="54"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347570_hu18078647860549872475.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347570_hu11000381912401351160.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="522"
+		data-flex-basis="1253px"
 	
 ></p>
 <p><strong>候选隐状态</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726898010393-dfb21468-68ef-44c0-b1c7-1b5d4ed04036.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345703.png"
+	width="390"
+	height="249"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345703_hu5760189959524903297.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955345703_hu10743433914045177018.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="375px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726898027642-aa622ac6-be53-4366-96f6-050328369b38.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349060.png"
+	width="373"
+	height="35"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349060_hu12852205716405720279.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349060_hu8967058933772293267.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1065"
+		data-flex-basis="2557px"
 	
 ></p>
 <p>$ R_t $中的值保持在 [0, 1] 范围内，代表了对过去状态的记忆程度，接近于 0 时会将先前的状态大幅度遗忘</p>
 <p><strong>隐状态</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726898138342-cc50f014-4dd0-4f50-9dad-b4000238317c.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343442.png"
+	width="450"
+	height="247"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343442_hu1014039106152251139.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343442_hu4572580073928822910.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="437px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726898145441-6c45b8da-a7a2-4e5b-8b54-695a4d2f010b.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955344240.png"
+	width="266"
+	height="27"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955344240_hu7671134637808235677.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955344240_hu1228527173257868679.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="985"
+		data-flex-basis="2364px"
 	
 ></p>
 <p>$ Z_t $趋于 1 时，等于直接照搬过去的状态，不考虑这一轮的$ X_t
@@ -524,12 +548,16 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="n">d2l</span><span class="o">.</span><span class="n">train_ch8</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_iter</span><span class="p">,</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726899470329-cfd3c5e0-1f19-401f-9082-cc1721850983.png"
-	
-	
-	
+</div><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955341664.png"
+	width="594"
+	height="329"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955341664_hu7356649094064680380.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955341664_hu11579761949134209024.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
 	
 ></p>
 <h3 id="简洁实现">简洁实现
@@ -556,54 +584,78 @@ $</p>
 <li>输入门</li>
 <li>输出门</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726900947319-7bb0bd6c-4d67-4507-a0cf-25298710e708.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347902.png"
+	width="484"
+	height="341"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347902_hu5566804161308234024.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955347902_hu7034587734292334584.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="340px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726900956187-1369973a-3963-4a67-aacc-004350114fa5.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349663.png"
+	width="312"
+	height="85"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349663_hu3315136420079110534.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955349663_hu7633994070362940210.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="367"
+		data-flex-basis="880px"
 	
 ></p>
 <p><strong>候选记忆元</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901011883-60f506ae-d872-4fe1-9e7f-aa7be51a596d.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343336.png"
+	width="496"
+	height="353"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343336_hu16449604270572296107.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955343336_hu11700242821957285254.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="337px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901569596-9573305e-2522-4b1b-ae0d-39594085b9fd.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353347.png"
+	width="321"
+	height="32"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353347_hu11006518200496237162.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353347_hu12189648169069360527.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1003"
+		data-flex-basis="2407px"
 	
 ></p>
 <p><strong>记忆元</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901615497-59efb661-7215-4427-a2e8-dbe5b0c41b28.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359423.png"
+	width="593"
+	height="351"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359423_hu17735564492057550280.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359423_hu15108868772016455722.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="405px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901719162-f5ab8351-1622-4f71-bce8-e4c58b477cc3.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352512.png"
+	width="250"
+	height="26"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352512_hu15158669035366161457.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352512_hu13350909903461121929.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="961"
+		data-flex-basis="2307px"
 	
 ></p>
 <p>$ F_t $: 是否遗忘该轮$ X_t
@@ -612,20 +664,28 @@ $</p>
 $</p>
 <p>和 GRU 不同的是，LSTM 中的 F_t 和 I_t 是独立的，可以既保留过去记忆又保留当前记忆</p>
 <p><strong>隐状态</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901952955-c722294c-fe01-48aa-ae56-e33a895190ee.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955358967.png"
+	width="612"
+	height="346"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955358967_hu8478141249324006718.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955358967_hu910139002087297411.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="424px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726901960277-108fc7fe-ad86-4ca5-b448-1e39f4ec0549.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357764.png"
+	width="198"
+	height="29"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357764_hu16738759943916190981.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357764_hu912148012368889879.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="682"
+		data-flex-basis="1638px"
 	
 ></p>
 <p>将 C_t 的值限制在 (-1, 1)中，并使用 O_t 控制输出</p>
@@ -767,12 +827,16 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="n">d2l</span><span class="o">.</span><span class="n">train_ch8</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_iter</span><span class="p">,</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726903246275-c79fa146-506c-44fa-85aa-85e00c60d191.png"
-	
-	
-	
+</div><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955351044.png"
+	width="625"
+	height="337"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955351044_hu17521991987641027073.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955351044_hu8472153567304460396.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="445px"
 	
 ></p>
 <p>简洁实现</p>
@@ -793,28 +857,40 @@ $</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="深度循环神经网络">深度循环神经网络
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726904280178-90858858-3761-4315-9adf-1792cfe12e45.png"
-	
-	
-	
+</h1><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353730.png"
+	width="335"
+	height="368"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353730_hu9121868420589503481.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353730_hu14054479573585085095.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="91"
+		data-flex-basis="218px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726904297776-9ec94c0b-82e6-46d7-aef1-ddc1a78336f5.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353175.png"
+	width="339"
+	height="32"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353175_hu1509804758926124237.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353175_hu9840322229931065880.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1059"
+		data-flex-basis="2542px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726904319939-83cf720c-a69f-4e02-98ab-a382f0ac5c73.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352651.png"
+	width="179"
+	height="41"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352651_hu11189326448681500856.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352651_hu1209110505874597384.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="436"
+		data-flex-basis="1047px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -859,37 +935,53 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="n">d2l</span><span class="o">.</span><span class="n">train_ch8</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_iter</span><span class="p">,</span> <span class="n">vocab</span><span class="p">,</span> <span class="n">lr</span><span class="o">*</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726904443763-527fa42b-284f-4f2d-ae4a-f110d3134c78.png"
-	
-	
-	
+</div><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352238.png"
+	width="628"
+	height="338"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352238_hu1679099956415553914.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352238_hu10278413782424992919.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="445px"
 	
 ></p>
 <h1 id="双向循环神经网络">双向循环神经网络
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726905507765-eb508f77-5f90-4fe0-8266-05321aaec315.png"
-	
-	
-	
+</h1><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359874.png"
+	width="348"
+	height="251"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359874_hu7415700531251420445.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359874_hu787582345796146624.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726905797506-9818c584-7fe9-46d9-803c-8b50abb8d6a8.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357253.png"
+	width="328"
+	height="78"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357253_hu7300714213166849856.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357253_hu15764877016660635885.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="420"
+		data-flex-basis="1009px"
 	
 ></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726905804957-115a76b5-925e-4ce9-9a02-c559e4789fe4.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357922.png"
+	width="193"
+	height="44"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357922_hu2070232858106910885.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955357922_hu10897568730852859549.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="438"
+		data-flex-basis="1052px"
 	
 ></p>
 <p>双向 RNN 主要用来对句子进行特征提取或填空，通常不用来推理</p>
@@ -1090,12 +1182,16 @@ $</p>
 </span></span><span class="line"><span class="cl">                        <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726909602862-84857eb3-c018-49e2-b2e8-a5388855f0fe.png"
-	
-	
-	
+</div><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353366.png"
+	width="410"
+	height="246"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353366_hu12869035931055069116.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955353366_hu5436247403576733197.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -1238,12 +1334,16 @@ $</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="编码器和解码器">编码器和解码器
-</h1><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726910685500-0ab94242-c245-43f4-b69c-ad6f86dd9c26.png"
-	
-	
-	
+</h1><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359684.png"
+	width="519"
+	height="125"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359684_hu11116152390900627150.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955359684_hu10495042181641410452.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="415"
+		data-flex-basis="996px"
 	
 ></p>
 <div class="highlight"><div class="chroma">
@@ -1338,12 +1438,16 @@ $</p>
 </div>
 </div><h1 id="序列到序列学习-seq2seq">序列到序列学习 seq2seq
 </h1><h2 id="主要思想-2">主要思想
-</h2><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726973189608-60e9425e-971b-457b-b59e-365c13b2ce28.png"
-	
-	
-	
+</h2><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955354304.png"
+	width="700"
+	height="173"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955354304_hu9610218188525922838.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955354304_hu11836537000352047522.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="404"
+		data-flex-basis="971px"
 	
 ></p>
 <ul>
@@ -1354,31 +1458,43 @@ $</p>
 </li>
 <li>解码器是另一个 RNN，接收 encoder 的 state 来输出</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726973333348-403de99d-0a4d-45b5-b171-6126a5956fd4.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352880.png"
+	width="412"
+	height="260"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352880_hu2516831123312933982.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955352880_hu5034540224904237115.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
 	
 ></p>
 <ul>
 <li>编码器不需要输出，其最后时间步的隐状态作为解码器的初始隐状态</li>
 </ul>
-<p>训练：<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726973470964-59575a7a-62fc-4745-826b-2ec2aaed673e.png"
-	
-	
-	
+<p>训练：<img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367116.png"
+	width="492"
+	height="159"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367116_hu8424888119916890706.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367116_hu16605958603029549191.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="309"
+		data-flex-basis="742px"
 	
 ></p>
-<p>预测：<img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726973485665-5a1becc3-9b60-4f2c-9ca3-daea0b849f39.png"
-	
-	
-	
+<p>预测：<img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367867.png"
+	width="491"
+	height="153"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367867_hu11750853801442867983.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367867_hu13477143746396039197.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="770px"
 	
 ></p>
 <ul>
@@ -1387,21 +1503,29 @@ $</p>
 <h2 id="预测序列的评估">预测序列的评估
 </h2><p><font style="color:rgba(0, 0, 0, 0.87);background-color:rgb(250, 250, 250);">BLEU（bilingual evaluation understudy）</font></p>
 <p>$ p_n $<font style="color:rgba(0, 0, 0, 0.87);">是预测所有 n-gram 的精度， 是预测序列与标签序列中匹配的</font><font style="color:rgba(0, 0, 0, 0.87);">n</font><font style="color:rgba(0, 0, 0, 0.87);">元语法的数量， 和预测序列中</font><font style="color:rgba(0, 0, 0, 0.87);">n</font><font style="color:rgba(0, 0, 0, 0.87);">元语法的数量的比率</font></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726978745643-db94723b-07d8-49a0-8220-c00d9539774b.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365244.png"
+	width="579"
+	height="71"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365244_hu12578600084976058590.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365244_hu1304678560222539041.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="815"
+		data-flex-basis="1957px"
 	
 ></p>
 <p>BLEU 定义：</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726978574536-530d3103-f091-4364-9588-07eaa1810c37.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955366471.png"
+	width="324"
+	height="72"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955366471_hu17932742957800873396.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955366471_hu8924910447039569283.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="450"
+		data-flex-basis="1080px"
 	
 ></p>
 <p>exp 项用来惩罚过短的预测，求和项中的指数使得长匹配具有高权重</p>
@@ -1778,12 +1902,16 @@ $</p>
 </span></span><span class="line"><span class="cl"><span class="n">train_seq2seq</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">train_iter</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">tgt_vocab</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726984938798-c7cb78d7-b2c4-4a17-bd58-04e5180f5e7c.png"
-	
-	
-	
+</div><p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955369088.png"
+	width="582"
+	height="301"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955369088_hu9060937044613108360.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955369088_hu1879572296773808255.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="193"
+		data-flex-basis="464px"
 	
 ></p>
 <p><strong>预测</strong></p>
@@ -1919,19 +2047,27 @@ $</p>
 </div><h1 id="束搜索">束搜索
 </h1><p>seq2seq 中使用了贪心搜索的策略，即将当前时刻预测概率最大的词输出</p>
 <p>但贪心并不一定最优</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726991207776-e1e4492d-2c4c-4d95-af59-c28498ea48fb.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365058.png"
+	width="230"
+	height="121"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365058_hu3827515130440370791.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955365058_hu7013146425366313905.png 1024w"
 	loading="lazy"
 	
 	
-><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726991214193-426731d4-78cf-4730-958d-378a2c2b3fe0.png"
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="456px"
 	
-	
-	
+><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367322.png"
+	width="217"
+	height="127"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367322_hu7370011816899167207.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955367322_hu17702798491772522207.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="410px"
 	
 ></p>
 <p>前者（贪心）=0.048，后者=0.054</p>
@@ -1939,22 +2075,30 @@ $</p>
 <li>穷举搜索：计算所有可能序列的概率，不可能实现</li>
 <li>束搜索：n 个可选，保存最好的 k 个候选</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726991458153-b3a431ab-c1f6-44b1-b1a4-42d531aecf4f.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955361287.png"
+	width="564"
+	height="320"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955361287_hu12312725939900116279.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955361287_hu5263045344182066945.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
 	
 ></p>
 <p>时间复杂度：O(knT)</p>
 <p>句子越长概率越低，为了避免倾向于选过短的句子，在取 log 后乘上 L 项</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/40712000/1726991679077-836ec2df-fa5a-4a6b-b361-c5aacc0bb46a.png"
-	
-	
-	
+<p><img src="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955362871.png"
+	width="535"
+	height="76"
+	srcset="/p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955362871_hu286327384744957074.png 480w, /p/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/images/20250106_0955362871_hu8494205656761327541.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="703"
+		data-flex-basis="1689px"
 	
 ></p>
 
@@ -2005,6 +2149,19 @@ $</p>
             
                 
 <article class="">
+    <a href="/p/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自然语言处理基础-动手学深度学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
@@ -2018,25 +2175,12 @@ $</p>
             
                 
 <article class="">
-    <a href="/p/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">卷积神经网络-动手学深度学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">多层感知机-动手学深度学习</h2>
+            <h2 class="article-title">注意力机制-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -2057,12 +2201,12 @@ $</p>
             
                 
 <article class="">
-    <a href="/p/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="/p/%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD-%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">注意力机制-动手学深度学习</h2>
+            <h2 class="article-title">计算性能-动手学深度学习</h2>
         </div>
     </a>
 </article>
@@ -2075,6 +2219,48 @@ $</p>
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">
