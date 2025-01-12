@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Paper on 刘常乐的个人博客</title>
+        <link>https://changle-liu.github.io/categories/paper/</link>
+        <description>Recent content in Paper on 刘常乐的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>ChangleLIU</copyright>
+        <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>(EMNLP24)Knowledge-Centric Hallucination Detection</title>
+        <link>https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/</link>
+        <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.png" alt="Featured image of post (EMNLP24)Knowledge-Centric Hallucination Detection" /&gt;&lt;p&gt;三元组、检索外部事实&lt;/p&gt;
+&lt;h1 id=&#34;motivation&#34;&gt;Motivation
+&lt;/h1&gt;&lt;p&gt;目前不同细粒度：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;response: 但当响应复杂且冗长时，它可能不具备信息性，并且在幻觉是局部时可能导致假阴性&lt;/li&gt;
+&lt;li&gt;sentence: 无法跨句子捕捉知识&lt;/li&gt;
+&lt;li&gt;sub-sentence: 结构上难以定义，用于 in-context learning 的高质量 demo 难以定义&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;提出将知识表示为三元组claim-triplets: (subject, predicate, object)，&lt;/p&gt;
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h1&gt;&lt;p&gt;三元组比其他粒度提升 9%&lt;/p&gt;
+&lt;p&gt;基准 KNOWHALBENCH：7 个 LLM 的 2100 个回答，标注了 11k 个三元组&lt;/p&gt;
+&lt;p&gt;自动检测框架 REFCHECKER：相比之前的方法在一致性上提升了 6.8% 至 26.1%&lt;/p&gt;
+&lt;h1 id=&#34;related-work&#34;&gt;Related Work
+&lt;/h1&gt;&lt;h1 id=&#34;method&#34;&gt;Method
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688.png&#34;
+	width=&#34;966&#34;
+	height=&#34;366&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688_hu9311553721984791263.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688_hu11772017880551164832.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;263&#34;
+		data-flex-basis=&#34;633px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;三种上下文：&lt;/p&gt;
+&lt;p&gt;Zero-Context: closed book QA, 基于 LLM 内部知识回答&lt;/p&gt;
+&lt;p&gt;Noisy Context: 包含噪声，RAG 等获取外部知识&lt;/p&gt;
+&lt;p&gt;Accurate Context: 无噪声，针对文本摘要、closed-QA、信息抽取等任务&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.png&#34;
+	width=&#34;928&#34;
+	height=&#34;377&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu140822264211442041.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu10476492548795407074.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;246&#34;
+		data-flex-basis=&#34;590px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;幻觉定义：蕴含、对立、中立&lt;/p&gt;
+&lt;p&gt;REFCHECKER 框架：&lt;/p&gt;
+&lt;p&gt;Extractor：GPT4、Mixtral 8x7B 知识蒸馏到Mistral 7B（10k 监督微调）&lt;/p&gt;
+&lt;p&gt;Checker：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GPT4&lt;/li&gt;
+&lt;li&gt;NLI：AlignScore、RoBERTa-NLI&lt;/li&gt;
+&lt;li&gt;Mistral 7B
+&lt;ul&gt;
+&lt;li&gt;LoRA-sft&lt;/li&gt;
+&lt;li&gt;基于单层或全部层的表征分类：SVM、2 层 MLP、NCA 后 KNN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;聚合：可自定义&lt;/p&gt;
+&lt;p&gt;数据集构建：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ZC: NaturalQuestions (NQ)，GPT-3.5-Turbo 过滤掉模型拒绝回答或参考源质量低的&lt;/li&gt;
+&lt;li&gt;MS MARCO: 选择包含问题答案的黄金段落已被注释的示例&lt;/li&gt;
+&lt;li&gt;databricks-dolly15k4: closed_qa,  information_extraction and summarization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;experiments&#34;&gt;Experiments
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;检测的细粒度：KNOWHALBENCH&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987.png&#34;
+	width=&#34;470&#34;
+	height=&#34;423&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987_hu9754185842211891418.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987_hu5411498381373978347.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;111&#34;
+		data-flex-basis=&#34;266px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;SelfCheckGPT&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092.png&#34;
+	width=&#34;456&#34;
+	height=&#34;332&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092_hu6211418638742096534.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092_hu4704884216623751543.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;329px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;KNOWHALBENCH 和其他主流方法比较&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303.png&#34;
+	width=&#34;471&#34;
+	height=&#34;330&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303_hu726169266564814739.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303_hu12212379312783943754.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;342px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;消融实验：&lt;/p&gt;
+&lt;p&gt;提取器：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995.png&#34;
+	width=&#34;486&#34;
+	height=&#34;343&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995_hu11609144444062363773.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995_hu6655280411575312016.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;340px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;检查器：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454.png&#34;
+	width=&#34;966&#34;
+	height=&#34;508&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454_hu9194052380966745550.png 480w, https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454_hu5535533601396085512.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;190&#34;
+		data-flex-basis=&#34;456px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;future-work&#34;&gt;Future Work
+&lt;/h1&gt;&lt;p&gt;Limitations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;三元组依然无法充分涵盖复杂的语义，且由于推理和有限的上下文窗口而导致的高级幻觉形式很难用偏向于局部上下文的三元组来管理&lt;/li&gt;
+&lt;li&gt;各种数据格式（表格、代码、数学等）和特定领域（商业、医疗、法律等）。&lt;/li&gt;
+&lt;li&gt;基于模型的检查器可能会表现出对内部知识的偏见，错误地将中立的声明声明为蕴涵或矛盾，需要我们将某种形式的“知识源控制”注入 LLM&lt;/li&gt;
+&lt;li&gt;在实际部署案例中，用户要求更强的可定制性（例如，他们希望将 REFCHECKER 与自己的数据库一起使用以进行引用检索）和改进速度&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection</title>
+        <link>https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/</link>
+        <pubDate>Sat, 11 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.png" alt="Featured image of post (EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection" /&gt;&lt;p&gt;白盒检测、浙大、华为、未开源&lt;/p&gt;
+&lt;h1 id=&#34;motivation&#34;&gt;Motivation
+&lt;/h1&gt;&lt;p&gt;一个关键的挑战 幻觉问题 仍有待解决。&lt;/p&gt;
+&lt;p&gt;尽管之前做出了努力，但我们认为白盒幻觉检测并没有得到太多研究。白盒检测设置既可以使开源 LLM 社区（例如 LLaMA 或 Mistral）受益，并促使LLM所有者在当前的API形式上提供额外服务。与 black-box 设置相反，white-box 设置可能会利用 transformer 中的完整 token 概率矩阵和 embedding 层。在这项工作中，我们深入研究了这种白盒设置，并证明这些内部信息可能对检测幻觉有很大帮助。&lt;/p&gt;
+&lt;p&gt;现有的幻觉检测方法大多在 token 级别进行幻觉检测。然而，当模型在输出 token 的同时丢失了大量内部信息时，无疑大大增加了幻觉检测的难度。&lt;/p&gt;
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h1&gt;&lt;p&gt;本文提出了一种名为 EGH 的白盒幻觉检测方法，该方法利用模型的内部嵌入和梯度来确定幻觉。EGH 基于以下假设：在幻觉产生过程中，模型倾向于在不直接考虑输入问题的情况下生成响应。该模型对输入问题的理解代表了幻觉的程度。我们设计了条件和非条件输入，并利用泰勒展开方法来证明嵌入和梯度特征可以表示这种程度。EGH 在 HaluEval、SelfCheckGPT 和 HADES 等幻觉检测数据集上取得了最先进的结果，验证了我们方法的有效性。&lt;/p&gt;
+&lt;h1 id=&#34;related-work&#34;&gt;Related Work
+&lt;/h1&gt;&lt;p&gt;幻觉分类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;内部幻觉（和 input 冲突）和外部幻觉（和 input 无关）（Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):1–38.）&lt;/li&gt;
+&lt;li&gt;input 冲突、上下文冲突、事实冲突（Siren’s song in the ai ocean: A survey on hallucination in large language models. arXiv preprint arXiv:2309.01219.）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;幻觉不可避免（ Calibrated language models must hallucinate. arXiv preprint arXiv:2311.14648、Unfamiliar finetuning examples control how language models hallucinate. arXiv preprint arXiv:2403.05612.、Hallucination is inevitable: An innate limitation of large language models. arXiv preprint arXiv:2401.11817.）&lt;/p&gt;
+&lt;p&gt;检测方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数值指标：ROUGE、PARENT&lt;/li&gt;
+&lt;li&gt;基于模型检测：FACTSCORE、基于条件 LM 和非条件 LM 的 loss（Controlled hallucinations: Learning to generate faithfully from noisy data. In Findings of the Association for Computational Linguistics: EMNLP 2020, pages 864–870.）&lt;/li&gt;
+&lt;li&gt;多次问询（Self-contradictory hallucinations of large language models: Evaluation, detection and mitigation. arXiv preprint arXiv:2305.15852.）利用 LLM 评估器检测被测 LLM 是否存在上下文不一致&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;method&#34;&gt;Method
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.png&#34;
+	width=&#34;963&#34;
+	height=&#34;314&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu3451910776016542756.png 480w, https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu2489974275981933400.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;306&#34;
+		data-flex-basis=&#34;736px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930.png&#34;
+	width=&#34;968&#34;
+	height=&#34;547&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930_hu17425825234752000303.png 480w, https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930_hu12180235260737480882.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;424px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;QA task 中，$ Q = {Q_1, Q_2, &amp;hellip;, Q_m},
+A = {A_1, A_2, &amp;hellip;, A_n} $m 和 n 代表 token 数量。任务是对 A 分类并获得 $ y_{hal} \in {0, 1} $&lt;/li&gt;
+&lt;li&gt;方法基于这样一个假设，即在产生幻觉时，模型往往会从源文本 Q 中吸收较少的信息，并且输出与源文本无关。因此，模型访问 Q 的程度在一定程度上可以代表幻觉的程度&lt;/li&gt;
+&lt;li&gt;分别将 [Q, A] 和 [0, A] 喂给 LLM，其中 0-padding 部分在前向传递时进行 mask，相当于直接输入 A。测量两次的概率分布并计算差异 D([Q, A])，D()可微分，可以是 KL 散度、交叉熵等。D 越大代表 A 的输出越依赖 Q，即幻觉概率越小&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$ D([Q, A]) = \text{Difference}(P(A|Q), P(A|0)) $&lt;/p&gt;
+&lt;p&gt;D 可微分，一阶泰勒展开：&lt;/p&gt;
+&lt;p&gt;$
+D([Q, A]) = D([0, A]) + [\nabla D([0, A])]^{T} ([Q, A] - [0, A]) + R_1([Q, A]) $&lt;/p&gt;
+&lt;p&gt;D([0, A])是定值，R1 高阶项计算复杂忽略不考虑&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[Q, A] - [0, A]：token 相减没有意义，因此考虑 embedding 层。E = E(A|Q) - E(A|0)是两个 input 模式下的 A 的 embedding 层向量的差。最终取了最后一层隐藏层作为 embedding，E 的形状为 [n, h]&lt;/li&gt;
+&lt;li&gt;$ \nabla D([0, A]) $：计算 0 填充前后的 A_i 的 KL 散度之和$ D([Q,A]) = \sum_{i=1}^{n} D_{KL}[P(A_i|Q) || P(A_i|0)] $，再由反向传播获得到对应 embedding 层的梯度，即$ G = \nabla D([0, A]) $&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$ y_{hal} = f(\lambda E + (1 - \lambda)G) $，E 和 G 进行加权并平均池化为长度为 h 的向量，f 取三层的 MLP 并训练来实现二分类。&lt;/p&gt;
+&lt;h1 id=&#34;experiments&#34;&gt;Experiments
+&lt;/h1&gt;&lt;p&gt;实验中$ \lambda $取 0.8，三层 MLP，前两层将维度缩放至一半，最后一层转换成概率，ReLU 作为激活函数。&lt;/p&gt;
+&lt;p&gt;分别在 HaluEval、SelfCheckGPT、HADES 三个 benchmark 上实验并于对应 baseline 和其他主流方法比较&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HaluEval&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393.png&#34;
+	width=&#34;950&#34;
+	height=&#34;454&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393_hu17844538752758150011.png 480w, https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393_hu2030690936425503263.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;209&#34;
+		data-flex-basis=&#34;502px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;选用 Llama-2-7B 和 OPT-6.7B 作为幻觉生成模型；其余方法在对应模型上采取直接问询的方式检测&lt;/p&gt;
+&lt;p&gt;相比于 baseline 在除 General 之外（原因可能是 label 分布不平衡）提示显著，相比于另一个白盒检测方法 SAPLMA 提升 2-3%，SOTA。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SelfCheckGPT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377.png&#34;
+	width=&#34;466&#34;
+	height=&#34;356&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377_hu9867754017708105094.png 480w, https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377_hu8747362812545315798.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;130&#34;
+		data-flex-basis=&#34;314px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;baseline 部分的数据直接使用原论文中的，还和 Wang 等人论文中的结果进行了比较。在 SelfCheck-GPT 数据集的 10%上继续训练则会继续提升 2-3%。证明方法表现出一定程度的泛化性，适用于各种任务和数据集&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HADES&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;选用和 baseline 中相同的模型和设置，用于验证 EGH 在 BERT 等传统模型上也能用&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536.png&#34;
+	width=&#34;972&#34;
+	height=&#34;312&#34;
+	srcset=&#34;https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536_hu949927721754570985.png 480w, https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536_hu16896780972384996849.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;311&#34;
+		data-flex-basis=&#34;747px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;消融实验：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$ \lambda $选择 0 0.2 0.5 0.8 1，由于 QA 和摘要任务的准确性更高，使消融效果不那么明显，因此对对话任务进行了实验。0.8 时准确率更高，证明两特征都有作用且 embedding 作用更大&lt;/li&gt;
+&lt;li&gt;D()的选取：EGH（该研究方法）、 KL 散度和交叉熵
+&lt;ol&gt;
+&lt;li&gt;hal 和 non-hal 时的 KL 散度和交叉熵的概率分布证明相关性&lt;/li&gt;
+&lt;li&gt;逻辑回归+KL 和 CE 作为二维特征，证明直接利用概率、KL 散度、交叉熵等特征无法有效地模拟幻觉&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;future-work&#34;&gt;Future Work
+&lt;/h1&gt;&lt;p&gt;Limit：需要利用梯度信息并且需要梯度反向传播，增加了该方法的时间和空间复杂性。在时间方面，需要两个输入，尽管可以通过批量输入来缓解。在空间方面，需要梯度计算和额外的空间来存储信息。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>(ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models</title>
+        <link>https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/</link>
+        <pubDate>Fri, 10 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201.png" alt="Featured image of post (ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models" /&gt;&lt;h1 id=&#34;motivation&#34;&gt;Motivation
+&lt;/h1&gt;&lt;p&gt;随着模型参数数量的增加，closed book QA 等任务的性能准确性会提高，并且更大的模型可以生成更正确的事实陈述。然而由于训练预料的长尾效应，即使是最大的模型仍然可能失败。当前大模型趋势于下一个单词的预测，并专注于他们的推理能力。通过鼓励语言模型在响应之前首先生成内部思想或推理链，可以提高推理任务的性能。我们遵循这一研究方向来研究如何以及何时使用基于语言模型的推理来减少幻觉。我们开发了一种称为验证链 （CoVe） 的方法，该方法在给定初始草稿响应后，首先计划验证问题以检查其工作，然后系统地回答这些问题，以便最终生成改进的修订响应。&lt;/p&gt;
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h1&gt;&lt;p&gt;通过将验证分解为一组更简单的问题，模型能够以比回答原始查询更高的准确性回答验证问题。&lt;/p&gt;
+&lt;p&gt;控制模型的注意力，使其无法关注之前的答案（分解的 CoVe）有助于减轻复制相同的幻觉&lt;/p&gt;
+&lt;p&gt;方法仅通过要求同一模型审议（验证）其答案，即可提供显著的性能提升。&lt;/p&gt;
+&lt;h1 id=&#34;related-work&#34;&gt;Related Work
+&lt;/h1&gt;&lt;p&gt;训练时矫正：强化学习、对比学习、其它&lt;/p&gt;
+&lt;p&gt;生成时：logits、self-check、置信度&lt;/p&gt;
+&lt;p&gt;外部工具：RAG、CoT&lt;/p&gt;
+&lt;h1 id=&#34;method&#34;&gt;Method
+&lt;/h1&gt;&lt;p&gt;我们开发了验证链 （COVE） 方法，其中模型首先 （i） 起草初始响应;然后 （ii） 计划验证问题以对其草案进行事实核查;（iii） 独立回答这些问题，以免回答受到其他回答的偏见;以及 （iv） 生成其最终验证的响应。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201.png&#34;
+	width=&#34;1548&#34;
+	height=&#34;1528&#34;
+	srcset=&#34;https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201_hu12871707453287525089.png 480w, https://changle-liu.github.io/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201_hu11141347972000958464.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;101&#34;
+		data-flex-basis=&#34;243px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生成 baseline&lt;/li&gt;
+&lt;li&gt;few-shot 生成验证问题&lt;/li&gt;
+&lt;li&gt;执行验证：可使用 RAG 或 Tool，本研究中仅使用模型自我验证
+&lt;ol&gt;
+&lt;li&gt;Joint：步骤 2 和 3 在同一次对话中进行&lt;/li&gt;
+&lt;li&gt;2-step：Joint 中验证答案以初始响应为条件，可能会出现与原始基线回答类似的幻觉。因此将 2、3 分为单独的步骤&lt;/li&gt;
+&lt;li&gt;Factored：所有问题都作为单独的 prompt 分别回答&lt;/li&gt;
+&lt;li&gt;Factor+Revise：Factored 基础上集成了步骤 4， 分别验证原回答和验证回答的一致性并输出一致部分&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;验证回答&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;experiments&#34;&gt;Experiments
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;Wikidata API：“Who are some [Profession]s who were born in [City]?”共 56 个测试问题，每个问题包含～600 个 gold 实体&lt;/li&gt;
+&lt;li&gt;WIKI-CATEGORY LIST：使用 QUEST 数据集，加上“Name some 。。。”组成问题，每个问题 8 个答案&lt;/li&gt;
+&lt;li&gt;MultiSpanQA&lt;/li&gt;
+&lt;li&gt;人物传记长文本生成：FACTSCORE&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;未经指令微调的 Llama 65B + few-shot 作为 baseline，也和 Llama 2 7B Chat + zero-shot 进行了对比。bio 长文本上也测了 FACTSCORE 中的三个模型：InstructGPT、ChatGPT、PerplexityAI&lt;/p&gt;
+&lt;h1 id=&#34;future-work&#34;&gt;Future Work
+&lt;/h1&gt;&lt;p&gt;目前的工作未能完全消除幻觉，且仅对事实不准确的这一类幻觉&lt;/p&gt;
+&lt;p&gt;在验证执行步骤中使用检索增强，这可能会带来进一步的好处。CoT 等方法可增加可解释性，但也会加大花费&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

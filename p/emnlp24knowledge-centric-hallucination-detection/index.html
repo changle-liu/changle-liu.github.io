@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="三元组、检索外部事实\nMotivation 目前不同细粒度：\nresponse: 但当响应复杂且冗长时，它可能不具备信息性，并且在幻觉是局部时可能导致假阴性 sentence: 无法跨句子捕捉知识 sub-sentence: 结构上难以定义，用于 in-context learning 的高质量 demo 难以定义 提出将知识表示为三元组claim-triplets: (subject, predicate, object)，\n">
+<title>(EMNLP24)Knowledge-Centric Hallucination Detection</title>
+
+<link rel='canonical' href='https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="(EMNLP24)Knowledge-Centric Hallucination Detection">
+<meta property='og:description' content="三元组、检索外部事实\nMotivation 目前不同细粒度：\nresponse: 但当响应复杂且冗长时，它可能不具备信息性，并且在幻觉是局部时可能导致假阴性 sentence: 无法跨句子捕捉知识 sub-sentence: 结构上难以定义，用于 in-context learning 的高质量 demo 难以定义 提出将知识表示为三元组claim-triplets: (subject, predicate, object)，\n">
+<meta property='og:url' content='https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/'>
+<meta property='og:site_name' content='刘常乐的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-12T00:00:00&#43;00:00'/><meta property='og:image' content='https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.png' />
+<meta name="twitter:title" content="(EMNLP24)Knowledge-Centric Hallucination Detection">
+<meta name="twitter:description" content="三元组、检索外部事实\nMotivation 目前不同细粒度：\nresponse: 但当响应复杂且冗长时，它可能不具备信息性，并且在幻觉是局部时可能导致假阴性 sentence: 无法跨句子捕捉知识 sub-sentence: 结构上难以定义，用于 in-context learning 的高质量 demo 难以定义 提出将知识表示为三元组claim-triplets: (subject, predicate, object)，\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://changle-liu.github.io/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2154887485325875725.png" width="300"
+                            height="301" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">刘常乐的个人博客</a></h1>
+            <h2 class="site-description">创建于2025年1月5日的下午，用来记录我的个人成长、学习生活</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/changle-liu'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/emnlp24knowledge-centric-hallucination-detection/">
+                <img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu11213078180024382333.png"
+                        srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu11213078180024382333.png 800w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu1275047586390547301.png 1600w"
+                        width="800" 
+                        height="325" 
+                        loading="lazy"
+                        alt="Featured image of post (EMNLP24)Knowledge-Centric Hallucination Detection" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/paper/" style="background-color: #0B61A4; color: #fff;">
+                Paper
+            </a>
+        
+            <a href="/categories/llm/" style="background-color: #0B61A4; color: #fff;">
+                LLM
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/emnlp24knowledge-centric-hallucination-detection/">(EMNLP24)Knowledge-Centric Hallucination Detection</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 12, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>三元组、检索外部事实</p>
+<h1 id="motivation">Motivation
+</h1><p>目前不同细粒度：</p>
+<ul>
+<li>response: 但当响应复杂且冗长时，它可能不具备信息性，并且在幻觉是局部时可能导致假阴性</li>
+<li>sentence: 无法跨句子捕捉知识</li>
+<li>sub-sentence: 结构上难以定义，用于 in-context learning 的高质量 demo 难以定义</li>
+</ul>
+<p>提出将知识表示为三元组claim-triplets: (subject, predicate, object)，</p>
+<h1 id="conclusion">Conclusion
+</h1><p>三元组比其他粒度提升 9%</p>
+<p>基准 KNOWHALBENCH：7 个 LLM 的 2100 个回答，标注了 11k 个三元组</p>
+<p>自动检测框架 REFCHECKER：相比之前的方法在一致性上提升了 6.8% 至 26.1%</p>
+<h1 id="related-work">Related Work
+</h1><h1 id="method">Method
+</h1><p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688.png"
+	width="966"
+	height="366"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688_hu9311553721984791263.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633572688_hu11772017880551164832.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="263"
+		data-flex-basis="633px"
+	
+></p>
+<p>三种上下文：</p>
+<p>Zero-Context: closed book QA, 基于 LLM 内部知识回答</p>
+<p>Noisy Context: 包含噪声，RAG 等获取外部知识</p>
+<p>Accurate Context: 无噪声，针对文本摘要、closed-QA、信息抽取等任务</p>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.png"
+	width="928"
+	height="377"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu140822264211442041.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730_hu10476492548795407074.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="246"
+		data-flex-basis="590px"
+	
+></p>
+<p>幻觉定义：蕴含、对立、中立</p>
+<p>REFCHECKER 框架：</p>
+<p>Extractor：GPT4、Mixtral 8x7B 知识蒸馏到Mistral 7B（10k 监督微调）</p>
+<p>Checker：</p>
+<ul>
+<li>GPT4</li>
+<li>NLI：AlignScore、RoBERTa-NLI</li>
+<li>Mistral 7B
+<ul>
+<li>LoRA-sft</li>
+<li>基于单层或全部层的表征分类：SVM、2 层 MLP、NCA 后 KNN</li>
+</ul>
+</li>
+</ul>
+<p>聚合：可自定义</p>
+<p>数据集构建：</p>
+<ul>
+<li>ZC: NaturalQuestions (NQ)，GPT-3.5-Turbo 过滤掉模型拒绝回答或参考源质量低的</li>
+<li>MS MARCO: 选择包含问题答案的黄金段落已被注释的示例</li>
+<li>databricks-dolly15k4: closed_qa,  information_extraction and summarization</li>
+</ul>
+<h1 id="experiments">Experiments
+</h1><ol>
+<li>检测的细粒度：KNOWHALBENCH</li>
+</ol>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987.png"
+	width="470"
+	height="423"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987_hu9754185842211891418.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633586987_hu5411498381373978347.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="266px"
+	
+></p>
+<ol start="2">
+<li>SelfCheckGPT</li>
+</ol>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092.png"
+	width="456"
+	height="332"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092_hu6211418638742096534.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633588092_hu4704884216623751543.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="329px"
+	
+></p>
+<ol start="3">
+<li>KNOWHALBENCH 和其他主流方法比较</li>
+</ol>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303.png"
+	width="471"
+	height="330"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303_hu726169266564814739.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581303_hu12212379312783943754.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="342px"
+	
+></p>
+<p>消融实验：</p>
+<p>提取器：</p>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995.png"
+	width="486"
+	height="343"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995_hu11609144444062363773.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633581995_hu6655280411575312016.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="340px"
+	
+></p>
+<p>检查器：</p>
+<p><img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454.png"
+	width="966"
+	height="508"
+	srcset="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454_hu9194052380966745550.png 480w, /p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633587454_hu5535533601396085512.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="456px"
+	
+></p>
+<h1 id="future-work">Future Work
+</h1><p>Limitations:</p>
+<ul>
+<li>三元组依然无法充分涵盖复杂的语义，且由于推理和有限的上下文窗口而导致的高级幻觉形式很难用偏向于局部上下文的三元组来管理</li>
+<li>各种数据格式（表格、代码、数学等）和特定领域（商业、医疗、法律等）。</li>
+<li>基于模型的检查器可能会表现出对内部知识的偏见，错误地将中立的声明声明为蕴涵或矛盾，需要我们将某种形式的“知识源控制”注入 LLM</li>
+<li>在实际部署案例中，用户要求更强的可定制性（例如，他们希望将 REFCHECKER 与自己的数据库一起使用以进行引用检索）和改进速度</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/">
+        
+        
+            <div class="article-image">
+                <img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.df4def0b42e58f8c728ecc7bbdb39e30_hu11263421437133730400.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post (EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection"
+                        
+                        data-hash="md5-303vC0Llj4xyjsx7vbOeMA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/">
+        
+        
+            <div class="article-image">
+                <img src="/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201.72132f11ba5f437df08d15f3283e4dca_hu8266720726359656928.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post (ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models"
+                        
+                        data-hash="md5-chMvEbpfQ33wjRXzKD5Nyg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/images/20250106_1727052558.c46013fe0dbf1565f8d795761a65ed9c_hu4897208595907301036.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 大模型推理采样策略"
+                        
+                        data-hash="md5-xGAT/g2/FWX415V2GmXtnA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型推理采样策略</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">损失函数</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/lora%E5%BE%AE%E8%B0%83/">
+        
+        
+            <div class="article-image">
+                <img src="/p/lora%E5%BE%AE%E8%B0%83/images/image-0.d34d382541f47a429bec80ac3cb19df3_hu7590873341534075586.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post LoRA微调"
+                        
+                        data-hash="md5-0004JUH0ekKb7ICsPLGd8w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">LoRA微调</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 ChangleLIU
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

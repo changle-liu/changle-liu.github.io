@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="白盒检测、浙大、华为、未开源\nMotivation 一个关键的挑战 幻觉问题 仍有待解决。\n尽管之前做出了努力，但我们认为白盒幻觉检测并没有得到太多研究。白盒检测设置既可以使开源 LLM 社区（例如 LLaMA 或 Mistral）受益，并促使LLM所有者在当前的API形式上提供额外服务。与 black-box 设置相反，white-box 设置可能会利用 transformer 中的完整 token 概率矩阵和 embedding 层。在这项工作中，我们深入研究了这种白盒设置，并证明这些内部信息可能对检测幻觉有很大帮助。\n">
+<title>(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection</title>
+
+<link rel='canonical' href='https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection">
+<meta property='og:description' content="白盒检测、浙大、华为、未开源\nMotivation 一个关键的挑战 幻觉问题 仍有待解决。\n尽管之前做出了努力，但我们认为白盒幻觉检测并没有得到太多研究。白盒检测设置既可以使开源 LLM 社区（例如 LLaMA 或 Mistral）受益，并促使LLM所有者在当前的API形式上提供额外服务。与 black-box 设置相反，white-box 设置可能会利用 transformer 中的完整 token 概率矩阵和 embedding 层。在这项工作中，我们深入研究了这种白盒设置，并证明这些内部信息可能对检测幻觉有很大帮助。\n">
+<meta property='og:url' content='https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/'>
+<meta property='og:site_name' content='刘常乐的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.png' />
+<meta name="twitter:title" content="(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection">
+<meta name="twitter:description" content="白盒检测、浙大、华为、未开源\nMotivation 一个关键的挑战 幻觉问题 仍有待解决。\n尽管之前做出了努力，但我们认为白盒幻觉检测并没有得到太多研究。白盒检测设置既可以使开源 LLM 社区（例如 LLaMA 或 Mistral）受益，并促使LLM所有者在当前的API形式上提供额外服务。与 black-box 设置相反，white-box 设置可能会利用 transformer 中的完整 token 概率矩阵和 embedding 层。在这项工作中，我们深入研究了这种白盒设置，并证明这些内部信息可能对检测幻觉有很大帮助。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://changle-liu.github.io/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2154887485325875725.png" width="300"
+                            height="301" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">刘常乐的个人博客</a></h1>
+            <h2 class="site-description">创建于2025年1月5日的下午，用来记录我的个人成长、学习生活</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/changle-liu'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/">
+                <img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu15168455605817664151.png"
+                        srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu15168455605817664151.png 800w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu13186207986793939912.png 1600w"
+                        width="800" 
+                        height="261" 
+                        loading="lazy"
+                        alt="Featured image of post (EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/paper/" style="background-color: #0B61A4; color: #fff;">
+                Paper
+            </a>
+        
+            <a href="/categories/llm/" style="background-color: #0B61A4; color: #fff;">
+                LLM
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/">(EMNLP24)Embedding and Gradient Say Wrong - A White-Box Method for  Hallucination Detection</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 11, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>白盒检测、浙大、华为、未开源</p>
+<h1 id="motivation">Motivation
+</h1><p>一个关键的挑战 幻觉问题 仍有待解决。</p>
+<p>尽管之前做出了努力，但我们认为白盒幻觉检测并没有得到太多研究。白盒检测设置既可以使开源 LLM 社区（例如 LLaMA 或 Mistral）受益，并促使LLM所有者在当前的API形式上提供额外服务。与 black-box 设置相反，white-box 设置可能会利用 transformer 中的完整 token 概率矩阵和 embedding 层。在这项工作中，我们深入研究了这种白盒设置，并证明这些内部信息可能对检测幻觉有很大帮助。</p>
+<p>现有的幻觉检测方法大多在 token 级别进行幻觉检测。然而，当模型在输出 token 的同时丢失了大量内部信息时，无疑大大增加了幻觉检测的难度。</p>
+<h1 id="conclusion">Conclusion
+</h1><p>本文提出了一种名为 EGH 的白盒幻觉检测方法，该方法利用模型的内部嵌入和梯度来确定幻觉。EGH 基于以下假设：在幻觉产生过程中，模型倾向于在不直接考虑输入问题的情况下生成响应。该模型对输入问题的理解代表了幻觉的程度。我们设计了条件和非条件输入，并利用泰勒展开方法来证明嵌入和梯度特征可以表示这种程度。EGH 在 HaluEval、SelfCheckGPT 和 HADES 等幻觉检测数据集上取得了最先进的结果，验证了我们方法的有效性。</p>
+<h1 id="related-work">Related Work
+</h1><p>幻觉分类：</p>
+<ol>
+<li>内部幻觉（和 input 冲突）和外部幻觉（和 input 无关）（Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):1–38.）</li>
+<li>input 冲突、上下文冲突、事实冲突（Siren’s song in the ai ocean: A survey on hallucination in large language models. arXiv preprint arXiv:2309.01219.）</li>
+</ol>
+<p>幻觉不可避免（ Calibrated language models must hallucinate. arXiv preprint arXiv:2311.14648、Unfamiliar finetuning examples control how language models hallucinate. arXiv preprint arXiv:2403.05612.、Hallucination is inevitable: An innate limitation of large language models. arXiv preprint arXiv:2401.11817.）</p>
+<p>检测方法：</p>
+<ul>
+<li>数值指标：ROUGE、PARENT</li>
+<li>基于模型检测：FACTSCORE、基于条件 LM 和非条件 LM 的 loss（Controlled hallucinations: Learning to generate faithfully from noisy data. In Findings of the Association for Computational Linguistics: EMNLP 2020, pages 864–870.）</li>
+<li>多次问询（Self-contradictory hallucinations of large language models: Evaluation, detection and mitigation. arXiv preprint arXiv:2305.15852.）利用 LLM 评估器检测被测 LLM 是否存在上下文不一致</li>
+</ul>
+<h1 id="method">Method
+</h1><p><img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863.png"
+	width="963"
+	height="314"
+	srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu3451910776016542756.png 480w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145863_hu2489974275981933400.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="306"
+		data-flex-basis="736px"
+	
+></p>
+<p><img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930.png"
+	width="968"
+	height="547"
+	srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930_hu17425825234752000303.png 480w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629148930_hu12180235260737480882.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="424px"
+	
+></p>
+<ul>
+<li>QA task 中，$ Q = {Q_1, Q_2, &hellip;, Q_m},
+A = {A_1, A_2, &hellip;, A_n} $m 和 n 代表 token 数量。任务是对 A 分类并获得 $ y_{hal} \in {0, 1} $</li>
+<li>方法基于这样一个假设，即在产生幻觉时，模型往往会从源文本 Q 中吸收较少的信息，并且输出与源文本无关。因此，模型访问 Q 的程度在一定程度上可以代表幻觉的程度</li>
+<li>分别将 [Q, A] 和 [0, A] 喂给 LLM，其中 0-padding 部分在前向传递时进行 mask，相当于直接输入 A。测量两次的概率分布并计算差异 D([Q, A])，D()可微分，可以是 KL 散度、交叉熵等。D 越大代表 A 的输出越依赖 Q，即幻觉概率越小</li>
+</ul>
+<p>$ D([Q, A]) = \text{Difference}(P(A|Q), P(A|0)) $</p>
+<p>D 可微分，一阶泰勒展开：</p>
+<p>$
+D([Q, A]) = D([0, A]) + [\nabla D([0, A])]^{T} ([Q, A] - [0, A]) + R_1([Q, A]) $</p>
+<p>D([0, A])是定值，R1 高阶项计算复杂忽略不考虑</p>
+<ul>
+<li>[Q, A] - [0, A]：token 相减没有意义，因此考虑 embedding 层。E = E(A|Q) - E(A|0)是两个 input 模式下的 A 的 embedding 层向量的差。最终取了最后一层隐藏层作为 embedding，E 的形状为 [n, h]</li>
+<li>$ \nabla D([0, A]) $：计算 0 填充前后的 A_i 的 KL 散度之和$ D([Q,A]) = \sum_{i=1}^{n} D_{KL}[P(A_i|Q) || P(A_i|0)] $，再由反向传播获得到对应 embedding 层的梯度，即$ G = \nabla D([0, A]) $</li>
+</ul>
+<p>$ y_{hal} = f(\lambda E + (1 - \lambda)G) $，E 和 G 进行加权并平均池化为长度为 h 的向量，f 取三层的 MLP 并训练来实现二分类。</p>
+<h1 id="experiments">Experiments
+</h1><p>实验中$ \lambda $取 0.8，三层 MLP，前两层将维度缩放至一半，最后一层转换成概率，ReLU 作为激活函数。</p>
+<p>分别在 HaluEval、SelfCheckGPT、HADES 三个 benchmark 上实验并于对应 baseline 和其他主流方法比较</p>
+<ul>
+<li>HaluEval</li>
+</ul>
+<p><img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393.png"
+	width="950"
+	height="454"
+	srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393_hu17844538752758150011.png 480w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629145393_hu2030690936425503263.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
+	
+></p>
+<p>选用 Llama-2-7B 和 OPT-6.7B 作为幻觉生成模型；其余方法在对应模型上采取直接问询的方式检测</p>
+<p>相比于 baseline 在除 General 之外（原因可能是 label 分布不平衡）提示显著，相比于另一个白盒检测方法 SAPLMA 提升 2-3%，SOTA。</p>
+<ul>
+<li>SelfCheckGPT</li>
+</ul>
+<p><img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377.png"
+	width="466"
+	height="356"
+	srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377_hu9867754017708105094.png 480w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142377_hu8747362812545315798.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="314px"
+	
+></p>
+<p>baseline 部分的数据直接使用原论文中的，还和 Wang 等人论文中的结果进行了比较。在 SelfCheck-GPT 数据集的 10%上继续训练则会继续提升 2-3%。证明方法表现出一定程度的泛化性，适用于各种任务和数据集</p>
+<ul>
+<li>HADES</li>
+</ul>
+<p>选用和 baseline 中相同的模型和设置，用于验证 EGH 在 BERT 等传统模型上也能用</p>
+<p><img src="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536.png"
+	width="972"
+	height="312"
+	srcset="/p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536_hu949927721754570985.png 480w, /p/emnlp24embedding-and-gradient-say-wrong-a-white-box-method-for-hallucination-detection/images/20250112_1629142536_hu16896780972384996849.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="311"
+		data-flex-basis="747px"
+	
+></p>
+<p>消融实验：</p>
+<ol>
+<li>$ \lambda $选择 0 0.2 0.5 0.8 1，由于 QA 和摘要任务的准确性更高，使消融效果不那么明显，因此对对话任务进行了实验。0.8 时准确率更高，证明两特征都有作用且 embedding 作用更大</li>
+<li>D()的选取：EGH（该研究方法）、 KL 散度和交叉熵
+<ol>
+<li>hal 和 non-hal 时的 KL 散度和交叉熵的概率分布证明相关性</li>
+<li>逻辑回归+KL 和 CE 作为二维特征，证明直接利用概率、KL 散度、交叉熵等特征无法有效地模拟幻觉</li>
+</ol>
+</li>
+</ol>
+<h1 id="future-work">Future Work
+</h1><p>Limit：需要利用梯度信息并且需要梯度反向传播，增加了该方法的时间和空间复杂性。在时间方面，需要两个输入，尽管可以通过批量输入来缓解。在空间方面，需要梯度计算和额外的空间来存储信息。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/emnlp24knowledge-centric-hallucination-detection/">
+        
+        
+            <div class="article-image">
+                <img src="/p/emnlp24knowledge-centric-hallucination-detection/images/20250112_1633576730.9ff1bc377e25ce74fe5ea607a38ca7fd_hu4160103456518069332.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post (EMNLP24)Knowledge-Centric Hallucination Detection"
+                        
+                        data-hash="md5-n/G8N34lznT&#43;XqYHo4yn/Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(EMNLP24)Knowledge-Centric Hallucination Detection</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/">
+        
+        
+            <div class="article-image">
+                <img src="/p/iclr24chain-of-verification-reduces-hallucination-in-large-language-models/images/20250112_1626194201.72132f11ba5f437df08d15f3283e4dca_hu8266720726359656928.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post (ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models"
+                        
+                        data-hash="md5-chMvEbpfQ33wjRXzKD5Nyg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">(ICLR24)Chain-of-Verification Reduces Hallucination in Large Language Models</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%87%87%E6%A0%B7%E7%AD%96%E7%95%A5/images/20250106_1727052558.c46013fe0dbf1565f8d795761a65ed9c_hu4897208595907301036.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 大模型推理采样策略"
+                        
+                        data-hash="md5-xGAT/g2/FWX415V2GmXtnA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型推理采样策略</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">损失函数</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/lora%E5%BE%AE%E8%B0%83/">
+        
+        
+            <div class="article-image">
+                <img src="/p/lora%E5%BE%AE%E8%B0%83/images/image-0.d34d382541f47a429bec80ac3cb19df3_hu7590873341534075586.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post LoRA微调"
+                        
+                        data-hash="md5-0004JUH0ekKb7ICsPLGd8w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">LoRA微调</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 ChangleLIU
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

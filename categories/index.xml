@@ -2,42 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on 刘常乐的个人博客</title>
-        <link>http://localhost:1313/categories/</link>
+        <link>https://changle-liu.github.io/categories/</link>
         <description>Recent content in Categories on 刘常乐的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>ChangleLIU</copyright>
-        <lastBuildDate>Mon, 06 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://changle-liu.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>LLM</title>
-        <link>http://localhost:1313/categories/llm/</link>
-        <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
+        <link>https://changle-liu.github.io/categories/llm/</link>
+        <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/llm/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/llm/LLM.jpg" alt="Featured image of post LLM" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/llm/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/llm/LLM.jpg" alt="Featured image of post LLM" /&gt;</description>
+        </item>
+        <item>
+        <title>Paper</title>
+        <link>https://changle-liu.github.io/categories/paper/</link>
+        <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://changle-liu.github.io/categories/paper/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/paper/paper.jpg" alt="Featured image of post Paper" /&gt;</description>
         </item>
         <item>
         <title>Python</title>
-        <link>http://localhost:1313/categories/python/</link>
+        <link>https://changle-liu.github.io/categories/python/</link>
         <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/python/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/python/py.png" alt="Featured image of post Python" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/python/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/python/py.png" alt="Featured image of post Python" /&gt;</description>
         </item>
         <item>
         <title>深度学习</title>
-        <link>http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+        <link>https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/dl.png" alt="Featured image of post 深度学习" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/dl.png" alt="Featured image of post 深度学习" /&gt;</description>
         </item>
         <item>
         <title>生活</title>
-        <link>http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/</link>
+        <link>https://changle-liu.github.io/categories/%E7%94%9F%E6%B4%BB/</link>
         <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/life.jpg" alt="Featured image of post 生活" /&gt;</description>
+        <guid>https://changle-liu.github.io/categories/%E7%94%9F%E6%B4%BB/</guid>
+        <description>&lt;img src="https://changle-liu.github.io/categories/%E7%94%9F%E6%B4%BB/life.jpg" alt="Featured image of post 生活" /&gt;</description>
         </item>
         
     </channel>
